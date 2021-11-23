@@ -7,25 +7,101 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0E3DA127468DD60041300E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F0E3DA027468DD60041300E /* GoogleService-Info.plist */; };
 		3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF427314AAF00CB2B9A /* AppDelegate.swift */; };
 		3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */; };
-		3F113DF927314AAF00CB2B9A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF827314AAF00CB2B9A /* ViewController.swift */; };
+		3F113DF927314AAF00CB2B9A /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF827314AAF00CB2B9A /* CodeViewController.swift */; };
 		3F113DFC27314AAF00CB2B9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFA27314AAF00CB2B9A /* Main.storyboard */; };
 		3F113DFE27314AB000CB2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFD27314AB000CB2B9A /* Assets.xcassets */; };
 		3F113E0127314AB000CB2B9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFF27314AB000CB2B9A /* LaunchScreen.storyboard */; };
 		3F113E0927314BFB00CB2B9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3F113E0827314BFB00CB2B9A /* .gitignore */; };
+		3FBF83552733C77400A478B9 /* VillageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF83542733C77400A478B9 /* VillageViewController.swift */; };
+		3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF83562733CBE800A478B9 /* AvatarViewController.swift */; };
+		3FBF837D2733CEF400A478B9 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835C2733CEF400A478B9 /* Icon-29.png */; };
+		3FBF837E2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835D2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png */; };
+		3FBF837F2733CEF400A478B9 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835E2733CEF400A478B9 /* Icon-76@2x.png */; };
+		3FBF83802733CEF400A478B9 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835F2733CEF400A478B9 /* Icon-40@2x.png */; };
+		3FBF83812733CEF400A478B9 /* AppleWatch-Icon-29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83602733CEF400A478B9 /* AppleWatch-Icon-29@3x.png */; };
+		3FBF83822733CEF400A478B9 /* AppleWatch-Icon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83612733CEF400A478B9 /* AppleWatch-Icon-29@2x.png */; };
+		3FBF83832733CEF400A478B9 /* Icon-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83622733CEF400A478B9 /* Icon-40@3x.png */; };
+		3FBF83842733CEF400A478B9 /* Icon-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83632733CEF400A478B9 /* Icon-50@2x.png */; };
+		3FBF83852733CEF400A478B9 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83642733CEF400A478B9 /* Icon-83.5@2x.png */; };
+		3FBF83862733CEF400A478B9 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83652733CEF400A478B9 /* Icon-60@3x.png */; };
+		3FBF83872733CEF400A478B9 /* Icon-29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83662733CEF400A478B9 /* Icon-29@2x.png */; };
+		3FBF83882733CEF400A478B9 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83672733CEF400A478B9 /* Icon-76.png */; };
+		3FBF83892733CEF400A478B9 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83682733CEF400A478B9 /* Icon-72.png */; };
+		3FBF838A2733CEF400A478B9 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83692733CEF400A478B9 /* Icon-72@2x.png */; };
+		3FBF838B2733CEF400A478B9 /* Icon-29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836A2733CEF400A478B9 /* Icon-29@3x.png */; };
+		3FBF838C2733CEF400A478B9 /* AppleWatch-Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836B2733CEF400A478B9 /* AppleWatch-Icon-40@2x.png */; };
+		3FBF838D2733CEF400A478B9 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836C2733CEF400A478B9 /* Icon-60@2x.png */; };
+		3FBF838E2733CEF400A478B9 /* Icon-20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836D2733CEF400A478B9 /* Icon-20@3x.png */; };
+		3FBF838F2733CEF400A478B9 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836E2733CEF400A478B9 /* Icon-57.png */; };
+		3FBF83902733CEF400A478B9 /* AppleWatch-Icon-27.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF836F2733CEF400A478B9 /* AppleWatch-Icon-27.5@2x.png */; };
+		3FBF83912733CEF400A478B9 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83702733CEF400A478B9 /* Icon-40.png */; };
+		3FBF83922733CEF400A478B9 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83712733CEF400A478B9 /* Icon-50.png */; };
+		3FBF83932733CEF400A478B9 /* Icon-20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83722733CEF400A478B9 /* Icon-20@2x.png */; };
+		3FBF83942733CEF400A478B9 /* AppleWatch-Icon-24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83732733CEF400A478B9 /* AppleWatch-Icon-24@2x.png */; };
+		3FBF83952733CEF400A478B9 /* AppleWatch-Icon-98@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83742733CEF400A478B9 /* AppleWatch-Icon-98@2x.png */; };
+		3FBF83962733CEF400A478B9 /* AppleWatch-Icon-86@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83752733CEF400A478B9 /* AppleWatch-Icon-86@2x.png */; };
+		3FBF83972733CEF400A478B9 /* Icon-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83762733CEF400A478B9 /* Icon-20.png */; };
+		3FBF83982733CEF400A478B9 /* Icon-57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83772733CEF400A478B9 /* Icon-57@2x.png */; };
+		3FBF83992733CEF400A478B9 /* iTunesArtwork-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF83782733CEF400A478B9 /* iTunesArtwork-1024.png */; };
+		3FBF839A2733CEF400A478B9 /* logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837A2733CEF400A478B9 /* logo@1x.png */; };
+		3FBF839B2733CEF400A478B9 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837B2733CEF400A478B9 /* logo@3x.png */; };
+		3FBF839C2733CEF400A478B9 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837C2733CEF400A478B9 /* logo@2x.png */; };
+		3FBF839E2733CF0100A478B9 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF839D2733CF0100A478B9 /* logo.png */; };
+		EE66E152744C466F46C51679 /* Pods_MVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5CFE2CADD49B2C92568F3C /* Pods_MVM.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F0E3DA027468DD60041300E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3F113DF127314AAF00CB2B9A /* MVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F113DF427314AAF00CB2B9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F113DF827314AAF00CB2B9A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F113DF827314AAF00CB2B9A /* CodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
 		3F113DFB27314AAF00CB2B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F113DFD27314AB000CB2B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F113E0027314AB000CB2B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F113E0227314AB000CB2B9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F113E0827314BFB00CB2B9A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		3FBF83542733C77400A478B9 /* VillageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageViewController.swift; sourceTree = "<group>"; };
+		3FBF83562733CBE800A478B9 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
+		3FBF835C2733CEF400A478B9 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
+		3FBF835D2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-44@2x.png"; sourceTree = "<group>"; };
+		3FBF835E2733CEF400A478B9 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
+		3FBF835F2733CEF400A478B9 /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
+		3FBF83602733CEF400A478B9 /* AppleWatch-Icon-29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-29@3x.png"; sourceTree = "<group>"; };
+		3FBF83612733CEF400A478B9 /* AppleWatch-Icon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-29@2x.png"; sourceTree = "<group>"; };
+		3FBF83622733CEF400A478B9 /* Icon-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@3x.png"; sourceTree = "<group>"; };
+		3FBF83632733CEF400A478B9 /* Icon-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50@2x.png"; sourceTree = "<group>"; };
+		3FBF83642733CEF400A478B9 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
+		3FBF83652733CEF400A478B9 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		3FBF83662733CEF400A478B9 /* Icon-29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29@2x.png"; sourceTree = "<group>"; };
+		3FBF83672733CEF400A478B9 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		3FBF83682733CEF400A478B9 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		3FBF83692733CEF400A478B9 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		3FBF836A2733CEF400A478B9 /* Icon-29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29@3x.png"; sourceTree = "<group>"; };
+		3FBF836B2733CEF400A478B9 /* AppleWatch-Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-40@2x.png"; sourceTree = "<group>"; };
+		3FBF836C2733CEF400A478B9 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		3FBF836D2733CEF400A478B9 /* Icon-20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-20@3x.png"; sourceTree = "<group>"; };
+		3FBF836E2733CEF400A478B9 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57.png"; sourceTree = "<group>"; };
+		3FBF836F2733CEF400A478B9 /* AppleWatch-Icon-27.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-27.5@2x.png"; sourceTree = "<group>"; };
+		3FBF83702733CEF400A478B9 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
+		3FBF83712733CEF400A478B9 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
+		3FBF83722733CEF400A478B9 /* Icon-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-20@2x.png"; sourceTree = "<group>"; };
+		3FBF83732733CEF400A478B9 /* AppleWatch-Icon-24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-24@2x.png"; sourceTree = "<group>"; };
+		3FBF83742733CEF400A478B9 /* AppleWatch-Icon-98@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-98@2x.png"; sourceTree = "<group>"; };
+		3FBF83752733CEF400A478B9 /* AppleWatch-Icon-86@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-86@2x.png"; sourceTree = "<group>"; };
+		3FBF83762733CEF400A478B9 /* Icon-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-20.png"; sourceTree = "<group>"; };
+		3FBF83772733CEF400A478B9 /* Icon-57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57@2x.png"; sourceTree = "<group>"; };
+		3FBF83782733CEF400A478B9 /* iTunesArtwork-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork-1024.png"; sourceTree = "<group>"; };
+		3FBF837A2733CEF400A478B9 /* logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@1x.png"; sourceTree = "<group>"; };
+		3FBF837B2733CEF400A478B9 /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
+		3FBF837C2733CEF400A478B9 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		3FBF839D2733CF0100A478B9 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		7A5CFE2CADD49B2C92568F3C /* Pods_MVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85F0D20534FBA7996E915314 /* Pods-MVM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVM.debug.xcconfig"; path = "Target Support Files/Pods-MVM/Pods-MVM.debug.xcconfig"; sourceTree = "<group>"; };
+		96B0EAAF03E25F3D68A6E782 /* Pods-MVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVM.release.xcconfig"; path = "Target Support Files/Pods-MVM/Pods-MVM.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE66E152744C466F46C51679 /* Pods_MVM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +122,8 @@
 				3F113E0827314BFB00CB2B9A /* .gitignore */,
 				3F113DF327314AAF00CB2B9A /* MVM */,
 				3F113DF227314AAF00CB2B9A /* Products */,
+				5C510324FF6C0CCC321FEEAD /* Pods */,
+				6842CFF598DFEF8A6FAF9E51 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,15 +138,117 @@
 		3F113DF327314AAF00CB2B9A /* MVM */ = {
 			isa = PBXGroup;
 			children = (
+				3F0E3DA027468DD60041300E /* GoogleService-Info.plist */,
+				3FBF83592733CD1D00A478B9 /* Storyboard */,
+				3FBF83582733CD0900A478B9 /* ViewContoller */,
 				3F113DF427314AAF00CB2B9A /* AppDelegate.swift */,
 				3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */,
-				3F113DF827314AAF00CB2B9A /* ViewController.swift */,
-				3F113DFA27314AAF00CB2B9A /* Main.storyboard */,
 				3F113DFD27314AB000CB2B9A /* Assets.xcassets */,
-				3F113DFF27314AB000CB2B9A /* LaunchScreen.storyboard */,
 				3F113E0227314AB000CB2B9A /* Info.plist */,
+				3F99A70527316AA40072A847 /* Image */,
 			);
 			path = MVM;
+			sourceTree = "<group>";
+		};
+		3F99A70527316AA40072A847 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				3FBF839D2733CF0100A478B9 /* logo.png */,
+				3FBF835A2733CEF400A478B9 /* Hotpot Design */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		3FBF83582733CD0900A478B9 /* ViewContoller */ = {
+			isa = PBXGroup;
+			children = (
+				3F113DF827314AAF00CB2B9A /* CodeViewController.swift */,
+				3FBF83542733C77400A478B9 /* VillageViewController.swift */,
+				3FBF83562733CBE800A478B9 /* AvatarViewController.swift */,
+			);
+			path = ViewContoller;
+			sourceTree = "<group>";
+		};
+		3FBF83592733CD1D00A478B9 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				3F113DFA27314AAF00CB2B9A /* Main.storyboard */,
+				3F113DFF27314AB000CB2B9A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		3FBF835A2733CEF400A478B9 /* Hotpot Design */ = {
+			isa = PBXGroup;
+			children = (
+				3FBF835B2733CEF400A478B9 /* AppIcon.appiconset */,
+				3FBF83792733CEF400A478B9 /* iOS Image */,
+			);
+			path = "Hotpot Design";
+			sourceTree = "<group>";
+		};
+		3FBF835B2733CEF400A478B9 /* AppIcon.appiconset */ = {
+			isa = PBXGroup;
+			children = (
+				3FBF835C2733CEF400A478B9 /* Icon-29.png */,
+				3FBF835D2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png */,
+				3FBF835E2733CEF400A478B9 /* Icon-76@2x.png */,
+				3FBF835F2733CEF400A478B9 /* Icon-40@2x.png */,
+				3FBF83602733CEF400A478B9 /* AppleWatch-Icon-29@3x.png */,
+				3FBF83612733CEF400A478B9 /* AppleWatch-Icon-29@2x.png */,
+				3FBF83622733CEF400A478B9 /* Icon-40@3x.png */,
+				3FBF83632733CEF400A478B9 /* Icon-50@2x.png */,
+				3FBF83642733CEF400A478B9 /* Icon-83.5@2x.png */,
+				3FBF83652733CEF400A478B9 /* Icon-60@3x.png */,
+				3FBF83662733CEF400A478B9 /* Icon-29@2x.png */,
+				3FBF83672733CEF400A478B9 /* Icon-76.png */,
+				3FBF83682733CEF400A478B9 /* Icon-72.png */,
+				3FBF83692733CEF400A478B9 /* Icon-72@2x.png */,
+				3FBF836A2733CEF400A478B9 /* Icon-29@3x.png */,
+				3FBF836B2733CEF400A478B9 /* AppleWatch-Icon-40@2x.png */,
+				3FBF836C2733CEF400A478B9 /* Icon-60@2x.png */,
+				3FBF836D2733CEF400A478B9 /* Icon-20@3x.png */,
+				3FBF836E2733CEF400A478B9 /* Icon-57.png */,
+				3FBF836F2733CEF400A478B9 /* AppleWatch-Icon-27.5@2x.png */,
+				3FBF83702733CEF400A478B9 /* Icon-40.png */,
+				3FBF83712733CEF400A478B9 /* Icon-50.png */,
+				3FBF83722733CEF400A478B9 /* Icon-20@2x.png */,
+				3FBF83732733CEF400A478B9 /* AppleWatch-Icon-24@2x.png */,
+				3FBF83742733CEF400A478B9 /* AppleWatch-Icon-98@2x.png */,
+				3FBF83752733CEF400A478B9 /* AppleWatch-Icon-86@2x.png */,
+				3FBF83762733CEF400A478B9 /* Icon-20.png */,
+				3FBF83772733CEF400A478B9 /* Icon-57@2x.png */,
+				3FBF83782733CEF400A478B9 /* iTunesArtwork-1024.png */,
+			);
+			path = AppIcon.appiconset;
+			sourceTree = "<group>";
+		};
+		3FBF83792733CEF400A478B9 /* iOS Image */ = {
+			isa = PBXGroup;
+			children = (
+				3FBF837A2733CEF400A478B9 /* logo@1x.png */,
+				3FBF837B2733CEF400A478B9 /* logo@3x.png */,
+				3FBF837C2733CEF400A478B9 /* logo@2x.png */,
+			);
+			path = "iOS Image";
+			sourceTree = "<group>";
+		};
+		5C510324FF6C0CCC321FEEAD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85F0D20534FBA7996E915314 /* Pods-MVM.debug.xcconfig */,
+				96B0EAAF03E25F3D68A6E782 /* Pods-MVM.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6842CFF598DFEF8A6FAF9E51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A5CFE2CADD49B2C92568F3C /* Pods_MVM.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +258,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F113E0527314AB000CB2B9A /* Build configuration list for PBXNativeTarget "MVM" */;
 			buildPhases = (
+				4424CAFE1FDE6D74D2A8C361 /* [CP] Check Pods Manifest.lock */,
 				3F113DED27314AAF00CB2B9A /* Sources */,
 				3F113DEE27314AAF00CB2B9A /* Frameworks */,
 				3F113DEF27314AAF00CB2B9A /* Resources */,
+				8CB319A037C0B53786D57B32 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,20 +312,98 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F113E0927314BFB00CB2B9A /* .gitignore in Resources */,
+				3FBF83982733CEF400A478B9 /* Icon-57@2x.png in Resources */,
+				3FBF837E2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png in Resources */,
+				3FBF83802733CEF400A478B9 /* Icon-40@2x.png in Resources */,
+				3FBF83842733CEF400A478B9 /* Icon-50@2x.png in Resources */,
+				3FBF83852733CEF400A478B9 /* Icon-83.5@2x.png in Resources */,
+				3FBF83902733CEF400A478B9 /* AppleWatch-Icon-27.5@2x.png in Resources */,
+				3FBF83862733CEF400A478B9 /* Icon-60@3x.png in Resources */,
+				3FBF83912733CEF400A478B9 /* Icon-40.png in Resources */,
+				3FBF839B2733CEF400A478B9 /* logo@3x.png in Resources */,
 				3F113E0127314AB000CB2B9A /* LaunchScreen.storyboard in Resources */,
+				3F0E3DA127468DD60041300E /* GoogleService-Info.plist in Resources */,
+				3FBF839E2733CF0100A478B9 /* logo.png in Resources */,
+				3FBF838F2733CEF400A478B9 /* Icon-57.png in Resources */,
 				3F113DFE27314AB000CB2B9A /* Assets.xcassets in Resources */,
+				3FBF838E2733CEF400A478B9 /* Icon-20@3x.png in Resources */,
+				3FBF839C2733CEF400A478B9 /* logo@2x.png in Resources */,
+				3FBF83812733CEF400A478B9 /* AppleWatch-Icon-29@3x.png in Resources */,
+				3FBF83992733CEF400A478B9 /* iTunesArtwork-1024.png in Resources */,
 				3F113DFC27314AAF00CB2B9A /* Main.storyboard in Resources */,
+				3FBF839A2733CEF400A478B9 /* logo@1x.png in Resources */,
+				3FBF83892733CEF400A478B9 /* Icon-72.png in Resources */,
+				3FBF838C2733CEF400A478B9 /* AppleWatch-Icon-40@2x.png in Resources */,
+				3FBF837F2733CEF400A478B9 /* Icon-76@2x.png in Resources */,
+				3FBF838B2733CEF400A478B9 /* Icon-29@3x.png in Resources */,
+				3FBF83932733CEF400A478B9 /* Icon-20@2x.png in Resources */,
+				3FBF838D2733CEF400A478B9 /* Icon-60@2x.png in Resources */,
+				3FBF83962733CEF400A478B9 /* AppleWatch-Icon-86@2x.png in Resources */,
+				3FBF83972733CEF400A478B9 /* Icon-20.png in Resources */,
+				3FBF83922733CEF400A478B9 /* Icon-50.png in Resources */,
+				3FBF838A2733CEF400A478B9 /* Icon-72@2x.png in Resources */,
+				3FBF83882733CEF400A478B9 /* Icon-76.png in Resources */,
+				3FBF83872733CEF400A478B9 /* Icon-29@2x.png in Resources */,
+				3FBF83952733CEF400A478B9 /* AppleWatch-Icon-98@2x.png in Resources */,
+				3FBF83822733CEF400A478B9 /* AppleWatch-Icon-29@2x.png in Resources */,
+				3FBF83832733CEF400A478B9 /* Icon-40@3x.png in Resources */,
+				3FBF837D2733CEF400A478B9 /* Icon-29.png in Resources */,
+				3FBF83942733CEF400A478B9 /* AppleWatch-Icon-24@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4424CAFE1FDE6D74D2A8C361 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MVM-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CB319A037C0B53786D57B32 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MVM/Pods-MVM-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MVM/Pods-MVM-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MVM/Pods-MVM-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3F113DED27314AAF00CB2B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F113DF927314AAF00CB2B9A /* ViewController.swift in Sources */,
+				3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */,
+				3F113DF927314AAF00CB2B9A /* CodeViewController.swift in Sources */,
+				3FBF83552733C77400A478B9 /* VillageViewController.swift in Sources */,
 				3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */,
 				3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */,
 			);
@@ -288,11 +549,13 @@
 		};
 		3F113E0627314AB000CB2B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85F0D20534FBA7996E915314 /* Pods-MVM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FMP88TVVY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -315,11 +578,13 @@
 		};
 		3F113E0727314AB000CB2B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96B0EAAF03E25F3D68A6E782 /* Pods-MVM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FMP88TVVY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
