@@ -10,12 +10,12 @@
 		3F0E3DA127468DD60041300E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F0E3DA027468DD60041300E /* GoogleService-Info.plist */; };
 		3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF427314AAF00CB2B9A /* AppDelegate.swift */; };
 		3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */; };
-		3F113DF927314AAF00CB2B9A /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF827314AAF00CB2B9A /* CodeViewController.swift */; };
+		3F113DF927314AAF00CB2B9A /* VillageEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF827314AAF00CB2B9A /* VillageEnterViewController.swift */; };
 		3F113DFC27314AAF00CB2B9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFA27314AAF00CB2B9A /* Main.storyboard */; };
 		3F113DFE27314AB000CB2B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFD27314AB000CB2B9A /* Assets.xcassets */; };
 		3F113E0127314AB000CB2B9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F113DFF27314AB000CB2B9A /* LaunchScreen.storyboard */; };
 		3F113E0927314BFB00CB2B9A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 3F113E0827314BFB00CB2B9A /* .gitignore */; };
-		3FBF83552733C77400A478B9 /* VillageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF83542733C77400A478B9 /* VillageViewController.swift */; };
+		3FBF83552733C77400A478B9 /* VillageMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF83542733C77400A478B9 /* VillageMapViewController.swift */; };
 		3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF83562733CBE800A478B9 /* AvatarViewController.swift */; };
 		3FBF837D2733CEF400A478B9 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835C2733CEF400A478B9 /* Icon-29.png */; };
 		3FBF837E2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF835D2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png */; };
@@ -50,6 +50,10 @@
 		3FBF839B2733CEF400A478B9 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837B2733CEF400A478B9 /* logo@3x.png */; };
 		3FBF839C2733CEF400A478B9 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837C2733CEF400A478B9 /* logo@2x.png */; };
 		3FBF839E2733CF0100A478B9 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF839D2733CF0100A478B9 /* logo.png */; };
+		3FE6FEC4274F82FA00C00E22 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC3274F82FA00C00E22 /* Avatar.swift */; };
+		3FE6FEC8274F838C00C00E22 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC7274F838C00C00E22 /* Village.swift */; };
+		3FE6FECA274F839B00C00E22 /* MeetingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */; };
+		3FE6FECC275343CC00C00E22 /* AvatarSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FECB275343CC00C00E22 /* AvatarSettingTableViewCell.swift */; };
 		EE66E152744C466F46C51679 /* Pods_MVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5CFE2CADD49B2C92568F3C /* Pods_MVM.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,13 +62,13 @@
 		3F113DF127314AAF00CB2B9A /* MVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F113DF427314AAF00CB2B9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F113DF827314AAF00CB2B9A /* CodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
+		3F113DF827314AAF00CB2B9A /* VillageEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageEnterViewController.swift; sourceTree = "<group>"; };
 		3F113DFB27314AAF00CB2B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F113DFD27314AB000CB2B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F113E0027314AB000CB2B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F113E0227314AB000CB2B9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F113E0827314BFB00CB2B9A /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		3FBF83542733C77400A478B9 /* VillageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageViewController.swift; sourceTree = "<group>"; };
+		3FBF83542733C77400A478B9 /* VillageMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageMapViewController.swift; sourceTree = "<group>"; };
 		3FBF83562733CBE800A478B9 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		3FBF835C2733CEF400A478B9 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		3FBF835D2733CEF400A478B9 /* AppleWatch-Icon-44@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppleWatch-Icon-44@2x.png"; sourceTree = "<group>"; };
@@ -99,6 +103,10 @@
 		3FBF837B2733CEF400A478B9 /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
 		3FBF837C2733CEF400A478B9 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		3FBF839D2733CF0100A478B9 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		3FE6FEC3274F82FA00C00E22 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		3FE6FEC7274F838C00C00E22 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
+		3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoom.swift; sourceTree = "<group>"; };
+		3FE6FECB275343CC00C00E22 /* AvatarSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingTableViewCell.swift; sourceTree = "<group>"; };
 		7A5CFE2CADD49B2C92568F3C /* Pods_MVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85F0D20534FBA7996E915314 /* Pods-MVM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVM.debug.xcconfig"; path = "Target Support Files/Pods-MVM/Pods-MVM.debug.xcconfig"; sourceTree = "<group>"; };
 		96B0EAAF03E25F3D68A6E782 /* Pods-MVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVM.release.xcconfig"; path = "Target Support Files/Pods-MVM/Pods-MVM.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,6 +146,8 @@
 		3F113DF327314AAF00CB2B9A /* MVM */ = {
 			isa = PBXGroup;
 			children = (
+				3FE6FEC6274F833500C00E22 /* Meeting */,
+				3FE6FEC5274F831500C00E22 /* Village */,
 				3F0E3DA027468DD60041300E /* GoogleService-Info.plist */,
 				3FBF83592733CD1D00A478B9 /* Storyboard */,
 				3FBF83582733CD0900A478B9 /* ViewContoller */,
@@ -162,9 +172,10 @@
 		3FBF83582733CD0900A478B9 /* ViewContoller */ = {
 			isa = PBXGroup;
 			children = (
-				3F113DF827314AAF00CB2B9A /* CodeViewController.swift */,
-				3FBF83542733C77400A478B9 /* VillageViewController.swift */,
+				3F113DF827314AAF00CB2B9A /* VillageEnterViewController.swift */,
+				3FBF83542733C77400A478B9 /* VillageMapViewController.swift */,
 				3FBF83562733CBE800A478B9 /* AvatarViewController.swift */,
+				3FE6FECB275343CC00C00E22 /* AvatarSettingTableViewCell.swift */,
 			);
 			path = ViewContoller;
 			sourceTree = "<group>";
@@ -233,13 +244,29 @@
 			path = "iOS Image";
 			sourceTree = "<group>";
 		};
+		3FE6FEC5274F831500C00E22 /* Village */ = {
+			isa = PBXGroup;
+			children = (
+				3FE6FEC3274F82FA00C00E22 /* Avatar.swift */,
+				3FE6FEC7274F838C00C00E22 /* Village.swift */,
+			);
+			path = Village;
+			sourceTree = "<group>";
+		};
+		3FE6FEC6274F833500C00E22 /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */,
+			);
+			path = Meeting;
+			sourceTree = "<group>";
+		};
 		5C510324FF6C0CCC321FEEAD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				85F0D20534FBA7996E915314 /* Pods-MVM.debug.xcconfig */,
 				96B0EAAF03E25F3D68A6E782 /* Pods-MVM.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -401,9 +428,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FE6FEC4274F82FA00C00E22 /* Avatar.swift in Sources */,
 				3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */,
-				3F113DF927314AAF00CB2B9A /* CodeViewController.swift in Sources */,
-				3FBF83552733C77400A478B9 /* VillageViewController.swift in Sources */,
+				3FE6FECA274F839B00C00E22 /* MeetingRoom.swift in Sources */,
+				3FE6FEC8274F838C00C00E22 /* Village.swift in Sources */,
+				3FE6FECC275343CC00C00E22 /* AvatarSettingTableViewCell.swift in Sources */,
+				3F113DF927314AAF00CB2B9A /* VillageEnterViewController.swift in Sources */,
+				3FBF83552733C77400A478B9 /* VillageMapViewController.swift in Sources */,
 				3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */,
 				3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */,
 			);

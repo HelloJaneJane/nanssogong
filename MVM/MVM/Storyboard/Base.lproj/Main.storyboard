@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Code View Controller-->
+        <!--Village Enter View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CodeViewController" customModule="MVM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="VillageEnterViewController" customModule="MVM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,16 +29,6 @@
                                     <segue destination="mRC-dn-3x1" kind="show" id="WMV-2W-8Yz"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="코드" minimumFontSize="18" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sOV-MQ-6WA">
-                                <rect key="frame" x="94" y="354" width="200" height="34"/>
-                                <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="omc-1c-fns"/>
-                                </constraints>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni1-Rj-3tV">
                                 <rect key="frame" x="92.5" y="138" width="229" height="126"/>
                                 <constraints>
@@ -46,7 +36,7 @@
                                     <constraint firstAttribute="height" constant="126" id="W23-5T-TpL"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="입장코드를 입력하세요." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgY-ia-UYN">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="입장할 빌리지를 선택하세요." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgY-ia-UYN">
                                 <rect key="frame" x="82" y="294" width="250" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -61,19 +51,16 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="sOV-MQ-6WA" firstAttribute="top" secondItem="HgY-ia-UYN" secondAttribute="bottom" constant="30" id="1v6-5N-4jr"/>
                             <constraint firstItem="HgY-ia-UYN" firstAttribute="top" secondItem="ni1-Rj-3tV" secondAttribute="bottom" constant="30" id="2TG-D4-HGi"/>
                             <constraint firstItem="ni1-Rj-3tV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4eW-lD-Qbi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gih-J1-64m" secondAttribute="trailing" constant="50" id="FcD-2n-66L"/>
                             <constraint firstItem="gih-J1-64m" firstAttribute="top" secondItem="HgY-ia-UYN" secondAttribute="bottom" constant="30" id="TXk-3F-HEt"/>
-                            <constraint firstItem="gih-J1-64m" firstAttribute="leading" secondItem="sOV-MQ-6WA" secondAttribute="trailing" constant="10" id="d0d-QC-Eao"/>
                             <constraint firstItem="ni1-Rj-3tV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="jQd-Bq-8Rg"/>
                             <constraint firstItem="HgY-ia-UYN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="smU-qO-cNf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ae2-sG-fZs"/>
                     <connections>
-                        <outlet property="codeTextField" destination="sOV-MQ-6WA" id="CDb-GT-tMP"/>
                         <outlet property="logoImageView" destination="ni1-Rj-3tV" id="jdj-4h-EVS"/>
                         <outlet property="villageEnterButton" destination="gih-J1-64m" id="Oja-zK-2Bh"/>
                     </connections>
@@ -93,7 +80,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="LV5-e6-3f6">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="INR-X9-6pK"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="INR-X9-6pK">
+                            <connections>
+                                <action selector="avatarDone:" destination="mRC-dn-3x1" id="e86-X6-iys"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="avatarView" destination="GMZ-p4-Tfw" id="ztb-1e-olK"/>
@@ -124,9 +115,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="secondarySystemFillColor">
-            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
