@@ -199,6 +199,7 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
     }
     
     @IBAction func avatarDone(_ sender: Any) {
+        print("avatar done: " + nicknameTextField.text! as String)
         
         // nickname text 비어있으면 alert 띄우기
         if nicknameTextField.text! as String == "" {
@@ -215,6 +216,9 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
             var avatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor)
             
              // db로 보내기
+            
+            // village map 화면으로 옮기기
+            self.performSegue(withIdentifier: "AvatarDoneSegue", sender: self)
         }
 
     }

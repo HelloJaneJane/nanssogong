@@ -8,16 +8,34 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="FhW-cg-6HA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L9x-Yk-tLu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qLY-PG-sMJ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wov-X4-vy0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fhj-jd-uvQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
+        </scene>
         <!--Village Enter View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="VillageEnterViewController" customModule="MVM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gih-J1-64m">
-                                <rect key="frame" x="304" y="354" width="60" height="40"/>
+                                <rect key="frame" x="304" y="266" width="60" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="D9E-K5-7rZ"/>
                                     <constraint firstAttribute="width" constant="60" id="OcI-Hr-tD0"/>
@@ -30,14 +48,14 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni1-Rj-3tV">
-                                <rect key="frame" x="92.5" y="138" width="229" height="126"/>
+                                <rect key="frame" x="92.5" y="50" width="229" height="126"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="229" id="1rp-LN-Cfg"/>
                                     <constraint firstAttribute="height" constant="126" id="W23-5T-TpL"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="입장할 빌리지를 선택하세요." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgY-ia-UYN">
-                                <rect key="frame" x="82" y="294" width="250" height="30"/>
+                                <rect key="frame" x="82" y="206" width="250" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="1s2-eg-OVX"/>
@@ -74,7 +92,7 @@
             <objects>
                 <viewController id="mRC-dn-3x1" customClass="AvatarViewContoller" customModule="MVM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GMZ-p4-Tfw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="SIF-8K-rLq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -89,31 +107,42 @@
                     <connections>
                         <outlet property="avatarView" destination="GMZ-p4-Tfw" id="ztb-1e-olK"/>
                         <outlet property="navigationItem" destination="LV5-e6-3f6" id="sXK-nU-Kwu"/>
+                        <segue destination="TwT-gs-MEt" kind="show" identifier="AvatarDoneSegue" id="NpO-as-jwe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w3K-Sr-Tzq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1773.913043478261" y="97.767857142857139"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="FhW-cg-6HA">
+        <!--Village Map View Contoller-->
+        <scene sceneID="Sz0-62-sbS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L9x-Yk-tLu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qLY-PG-sMJ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <viewController id="TwT-gs-MEt" customClass="VillageMapViewContoller" customModule="MVM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dce-7n-D9J">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="J3c-1k-hvT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0w6-Hy-BjL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="PpS-oa-Agy">
+                            <connections>
+                                <action selector="villageExit:" destination="TwT-gs-MEt" id="vxk-f8-0Kg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wov-X4-vy0"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="VillageExitSegue" id="Vf9-No-UmK"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fhj-jd-uvQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ncm-Gc-VDi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
+            <point key="canvasLocation" x="2675" y="98"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Vf9-No-UmK"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
