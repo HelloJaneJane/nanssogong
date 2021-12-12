@@ -121,8 +121,41 @@
                     <view key="view" contentMode="scaleToFill" id="Dce-7n-D9J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykr-8o-p73" customClass="RTCEAGLVideoView">
+                                <rect key="frame" x="229" y="100" width="135" height="240"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="E2r-oe-jQa"/>
+                                    <constraint firstAttribute="height" constant="240" id="TKn-Sb-oAW"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-jl-SSK">
+                                <rect key="frame" x="204" y="433" width="67" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="testbuttonaction:" destination="TwT-gs-MEt" eventType="touchUpInside" id="0mH-XF-vU2"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxX-vh-uN8" customClass="RTCCameraPreviewView">
+                                <rect key="frame" x="50" y="100" width="135" height="240"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="ByA-oP-HN2"/>
+                                    <constraint firstAttribute="width" constant="135" id="R5e-fh-Q9t"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="J3c-1k-hvT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cxX-vh-uN8" firstAttribute="leading" secondItem="J3c-1k-hvT" secondAttribute="leading" constant="50" id="ELh-Sz-upE"/>
+                            <constraint firstItem="cxX-vh-uN8" firstAttribute="top" secondItem="J3c-1k-hvT" secondAttribute="top" constant="100" id="EXf-CC-elp"/>
+                            <constraint firstItem="J3c-1k-hvT" firstAttribute="trailing" secondItem="Ykr-8o-p73" secondAttribute="trailing" constant="50" id="RMN-Eh-98f"/>
+                            <constraint firstItem="Ykr-8o-p73" firstAttribute="top" secondItem="J3c-1k-hvT" secondAttribute="top" constant="100" id="ljF-pf-v1n"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0w6-Hy-BjL">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="PpS-oa-Agy">
@@ -132,12 +165,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cameraPreview" destination="cxX-vh-uN8" id="QGS-xN-N05"/>
+                        <outlet property="remoteVideoView" destination="Ykr-8o-p73" id="UN3-vi-olD"/>
+                        <outlet property="testbutton" destination="cS8-jl-SSK" id="Rmh-wH-NNq"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="VillageExitSegue" id="Vf9-No-UmK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ncm-Gc-VDi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2675" y="98"/>
+            <point key="canvasLocation" x="2673.913043478261" y="97.767857142857139"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

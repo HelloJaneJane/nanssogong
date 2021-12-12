@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0115BA275D1A2A00AC63F4 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0115B9275D1A2A00AC63F4 /* WebRTCClient.swift */; };
 		3F0E3DA127468DD60041300E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F0E3DA027468DD60041300E /* GoogleService-Info.plist */; };
 		3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF427314AAF00CB2B9A /* AppDelegate.swift */; };
 		3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113DF627314AAF00CB2B9A /* SceneDelegate.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F0115B9275D1A2A00AC63F4 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		3F0E3DA027468DD60041300E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3F113DF127314AAF00CB2B9A /* MVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F113DF427314AAF00CB2B9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */,
+				3F0115B9275D1A2A00AC63F4 /* WebRTCClient.swift */,
 			);
 			path = Meeting;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				TargetAttributes = {
 					3F113DF027314AAF00CB2B9A = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -429,6 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FE6FEC4274F82FA00C00E22 /* Avatar.swift in Sources */,
+				3F0115BA275D1A2A00AC63F4 /* WebRTCClient.swift in Sources */,
 				3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */,
 				3FE6FECA274F839B00C00E22 /* MeetingRoom.swift in Sources */,
 				3FE6FEC8274F838C00C00E22 /* Village.swift in Sources */,
@@ -584,9 +589,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FMP88TVVY;
+				ENABLE_BITCODE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -602,6 +609,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellojanejane.MVM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -613,9 +621,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FMP88TVVY;
+				ENABLE_BITCODE = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

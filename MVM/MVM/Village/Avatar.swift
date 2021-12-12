@@ -9,19 +9,21 @@ import Foundation
 
 
 class Avatar {
-//    var avatarId: Int
+    var avatarId: Int?
     var nickname: String
     var face: Int
     var topColor: Int
     var bottomColor: Int
-//    var position: (Int, Int)
+    var position: (Int, Int)?
     var isMeeting: Bool
     
     init(nickname: String, face: Int, topColor: Int, bottomColor: Int){
+        self.avatarId = nil
         self.nickname = nickname
         self.face = face
         self.topColor = topColor
         self.bottomColor = bottomColor
+        self.position = nil
         self.isMeeting = false
     }
     
