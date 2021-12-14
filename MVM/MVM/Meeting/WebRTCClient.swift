@@ -17,18 +17,18 @@ let kARDVideoTrackKind = "video"
 
 // encoding, decoding 하기 위해 새로 codable struct 만듦 (RTCIceCandidate, RTCSdpType, RTCSessionDescription은 decodable)
 struct IceCandidate: Codable {
-    let sdp: String
+    let candidate: String
     let sdpMLineIndex: Int32
     let sdpMid: String?
     
     init(from iceCandidate: RTCIceCandidate) {
         self.sdpMLineIndex = iceCandidate.sdpMLineIndex
         self.sdpMid = iceCandidate.sdpMid
-        self.sdp = iceCandidate.sdp
+        self.candidate = iceCandidate.sdp
     }
     
     var rtcIceCandidate: RTCIceCandidate {
-        return RTCIceCandidate(sdp: self.sdp, sdpMLineIndex: self.sdpMLineIndex, sdpMid: self.sdpMid)
+        return RTCIceCandidate(sdp: self.candidate, sdpMLineIndex: self.sdpMLineIndex, sdpMid: self.sdpMid)
     }
 }
 
@@ -102,7 +102,6 @@ class WebRTCClient: NSObject {
         
         self.peerConnection = WebRTCClient.factory.peerConnection(with: rtcConfiguration, constraints: rtcMediaConstraints, delegate: self)
         
-        print(self.peerConnection)
         self.createMediaSenders()
         self.configureAudioSession()
     }
@@ -139,9 +138,7 @@ class WebRTCClient: NSObject {
 //            }
 //        }
 //        self.remoteVideoTrack = videoTransceiver?.receiver.track as? RTCVideoTrack
-        print("????????")
         
-//        self.remoteVideoTrack = self.peerConnection!.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
     }
     
     func configureAudioSession() {
@@ -159,27 +156,20 @@ class WebRTCClient: NSObject {
     
     func createOffer(roomRef: DocumentReference, completion: @escaping (_ sdp: RTCSessionDescription) -> Void) {
         print("create offer")
-//        let roomRef = db.collection("rooms").document()
-        print(roomRef)
         
         self.peerConnection!.offer(for: RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil),
                                       completionHandler: { (sdp, error) in
             guard let sdp = sdp else {
                 return
             }
-//            self.peerConnection!.setLocalDescription(sdp)
             self.peerConnection!.setLocalDescription(sdp, completionHandler: {
                 (error) in completion(sdp)
             })
             
-            let roomWithOffer = ["offer": ["type": sdp.type.rawValue, "sdp": sdp.sdp]]
-//            print(roomWithOffer)
-            
-            print(roomRef.documentID)
+            let roomWithOffer = ["offer": ["type": "offer", "sdp": sdp.sdp]]
             
             roomRef.setData(roomWithOffer, completion: {
                 (err) in
-                    print("!!!!!!!!!!!")
                     if let err = err {
                         print("Error send offer sdp: \(err)")
                     }
@@ -188,30 +178,6 @@ class WebRTCClient: NSObject {
                         self.roomId = roomRef.documentID
                     }
             })
-            
-            print(db.collection("rooms"))
-            
-//            db.collection("rooms").addDocument(data: roomWithOffer) { (err) in
-//                print("!!!!!!!!!!!")
-//                if let err = err {
-//                    print("Error send offer sdp: \(err)")
-//                }
-//                else {
-//                    print("New room created with SDP offer. Room ID: \(roomRef.documentID)")
-//                    self.roomId = roomRef.documentID
-//                }
-//            }
-            
-//            roomRef.setData(roomWithOffer) { (err) in
-//                print("!!!!!!!!!!!")
-//                if let err = err {
-//                    print("Error send offer sdp: \(err)")
-//                }
-//                else {
-//                    print("New room created with SDP offer. Room ID: \(roomRef.documentID)")
-//                    self.roomId = roomRef.documentID
-//                }
-//            }
         })
     }
     
@@ -237,6 +203,84 @@ class WebRTCClient: NSObject {
         })
     }
     
+    func sendCandidate(candidate: RTCIceCandidate, isRoomOpened: Bool, roomRef: DocumentReference?) {
+        if (roomRef == nil) {
+            print("roomRef nil이라서 send candidate fail")
+            return
+        }
+        let candidatesCollection = isRoomOpened ? roomRef!.collection("callerCandidates") : roomRef!.collection("calleeCandidates")
+        
+        do {
+            let dataMessage = try JSONEncoder().encode(IceCandidate(from: candidate))
+            let dict = try JSONSerialization.jsonObject(with: dataMessage, options: .allowFragments) as! [String: Any]
+            candidatesCollection.addDocument(data: dict) { (err) in
+                if let err = err {
+                    print("Error send candidate: \(err)")
+                }
+                else {
+                    print("Candidate sent!")
+                }
+            }
+        }
+        catch {
+            print("JSONSericalization caller candidate fail")
+        }
+    }
+    
+    func listenCallee(roomRef: DocumentReference) {
+        // listen remote sdp
+        roomRef.addSnapshotListener { snapshot, error in
+            print("remote sdp snapshot")
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            if (self.peerConnection?.remoteDescription != nil && data["answer"] != nil) {
+                do {
+                    let answerJSON = try JSONSerialization.data(withJSONObject: data["answer"], options: .fragmentsAllowed)
+                    let answerSDP = try JSONDecoder().decode(SessionDescription.self, from: answerJSON)
+                    print("Got remote description: \(answerSDP)")
+                    self.peerConnection!.setRemoteDescription(answerSDP.rtcSessionDescription,
+                                                                      completionHandler: {(error) in
+                        print("Warning: Could not set remote description: \(error)")}
+                    )
+                }
+                catch {
+                    print("Warning: Could not decode sdp data: \(error)")
+                    return
+                }
+            }
+        }
+        
+        // listen remote candidate
+        roomRef.collection("calleeCandidates").addSnapshotListener { snapshot, error in
+            print("callee candidate snapshot")
+            guard let documents = snapshot?.documents else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            
+            snapshot!.documentChanges.forEach { diff in
+                if (diff.type == .added) {
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: diff.document.data(), options: .prettyPrinted)
+                        let iceCandidate = try JSONDecoder().decode(IceCandidate.self, from: jsonData)
+                        print("Got new remote ICE candidate: \(iceCandidate)")
+                        self.peerConnection!.add(iceCandidate.rtcIceCandidate)
+                    }
+                    catch {
+                        print("Warning: Could not decode candidate data: \(error)")
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 
@@ -249,9 +293,7 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
         print("peerConnection didAdd stream")
         DispatchQueue.main.async(execute: { () -> Void in
-                    // mainスレッドで実行
                     if (stream.videoTracks.count > 0) {
-                        // ビデオのトラックを取り出して
                         self.remoteVideoTrack = stream.videoTracks[0]
                     }
                 })

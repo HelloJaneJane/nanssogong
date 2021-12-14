@@ -12,8 +12,13 @@ import WebRTC
 
 class VillageMapViewContoller: UIViewController {
     
+    @IBOutlet var villageMapView: UIView!
+    
     @IBOutlet weak var cameraPreview: RTCCameraPreviewView!
     @IBOutlet weak var remoteVideoView: RTCEAGLVideoView!
+    
+    var villageView: UIView!
+    
     
     var webRTCClient: WebRTCClient = WebRTCClient()
     
@@ -22,6 +27,21 @@ class VillageMapViewContoller: UIViewController {
     
 
     var meetingRoom: MeetingRoom = MeetingRoom.init()
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let safeWidth = villageMapView.safeAreaLayoutGuide.layoutFrame.width
+        let safeHeight = villageMapView.safeAreaLayoutGuide.layoutFrame.height
+        let safeTop = villageMapView.safeAreaInsets.top
+        
+        let centerY = safeTop + safeHeight/2
+   
+        villageView = UIView(frame: CGRect(x: 0, y: centerY - safeWidth/2, width: safeWidth, height: safeWidth))
+        villageView.backgroundColor = UIColor.red
+
+        
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +49,8 @@ class VillageMapViewContoller: UIViewController {
         self.remoteVideoView.delegate = self
         self.webRTCClient.delegate = self
         
-        self.meetingRoom.createRoom(webRTCClient: self.webRTCClient)
+        var roomRef = self.meetingRoom.createRoom(webRTCClient: self.webRTCClient)
+        self.webRTCClient.listenCallee(roomRef: roomRef)
         
         print(self.meetingRoom)
 
@@ -37,9 +58,16 @@ class VillageMapViewContoller: UIViewController {
     
     @IBAction func testbuttonaction(_ sender: Any) {
         
-        
         cameraPreview.captureSession = self.webRTCClient.videoCapturer?.captureSession
+//        self.webRTCClient.videoCapturer?.captureSession.startRunning()
+        cameraPreview.captureSession.startRunning()
+        
+        
         self.webRTCClient.remoteVideoTrack?.add(self.remoteVideoView)
+        
+        cameraPreview.layoutIfNeeded()
+        remoteVideoView.layoutIfNeeded()
+        
     }
     
     
@@ -47,7 +75,7 @@ class VillageMapViewContoller: UIViewController {
         let alert = UIAlertController(title: "빌리지를 나가시겠습니까?", message: "빌리지 입장 화면으로 이동합니다.", preferredStyle: UIAlertController.Style.alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             // village enter view로 이동
-            self.performSegue(withIdentifier: "VillageExitSegue", sender: self)
+            self.navigationController?.popToRootViewController(animated: true)
         }
         let noAction = UIAlertAction(title: "NO", style: .cancel)
         alert.addAction(yesAction)
@@ -81,7 +109,9 @@ class VillageMapViewContoller: UIViewController {
 extension VillageMapViewContoller: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
-        self.sendCandidate(candidate: candidate)
+        
+        client.sendCandidate(candidate: candidate, isRoomOpened: self.meetingRoom.isRoomOpened, roomRef: self.meetingRoom.roomRef)
+//        self.sendCandidate(candidate: candidate)
     }
 }
 
