@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
+class AvatarViewContoller: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var avatarView: UIView!
     
@@ -83,6 +83,8 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
         avatarSettingTableView.delegate = self
         avatarSettingTableView.register(AvatarSettingTableViewCell.self, forCellReuseIdentifier: "cell")
         
+        avatarSettingTableView.backgroundColor = UIColor.clear
+        
         self.view.addSubview(avatarSettingTableView)
         
 
@@ -116,48 +118,7 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
         }
     
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "얼굴"
-        case 1:
-            return "상의"
-        case 2:
-            return "하의"
-        default:
-            return ""
-        }
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: AvatarSettingTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AvatarSettingTableViewCell
-        cell.selectionStyle = .none
-        
-        let buttons = [cell.button1, cell.button2, cell.button3, cell.button4, cell.button5]
-        
-        if indexPath.section == 0 {
-            for i in 1...buttons.count{
-                setFaceButton(button: buttons[i-1], idx: i)
-            }
-        }
-        else if indexPath.section == 1 {
-            for i in 1...buttons.count{
-                setTopColorButton(button: buttons[i-1], idx: i)
-            }
-        }
-        else if indexPath.section == 2 {
-            for i in 1...buttons.count{
-                setBottomColorButton(button: buttons[i-1], idx: i)
-            }
-        }
-        
-        return cell
-    }
+    
     
     func setFaceButton(button: UIButton, idx: Int) {
         button.setImage(UIImage(named: "face_"+String(idx)+".png"), for: .normal)
@@ -213,9 +174,9 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
             
             // db에서 village 받아와서 avatar id, avatar position 정하기
             
-            var avatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor)
+            myAvatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor)
             
-             // db로 보내기
+            // db로 보내기
             
             // village map 화면으로 옮기기
             self.performSegue(withIdentifier: "AvatarDoneSegue", sender: self)
@@ -223,4 +184,55 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate, UITableViewDel
 
     }
     
+}
+
+
+// setting table view delegate
+extension AvatarViewContoller: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "얼굴"
+        case 1:
+            return "상의"
+        case 2:
+            return "하의"
+        default:
+            return ""
+        }
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: AvatarSettingTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AvatarSettingTableViewCell
+        cell.selectionStyle = .none
+        
+        let buttons = [cell.button1, cell.button2, cell.button3, cell.button4, cell.button5]
+        
+        if indexPath.section == 0 {
+            for i in 1...buttons.count{
+                setFaceButton(button: buttons[i-1], idx: i)
+            }
+        }
+        else if indexPath.section == 1 {
+            for i in 1...buttons.count{
+                setTopColorButton(button: buttons[i-1], idx: i)
+            }
+        }
+        else if indexPath.section == 2 {
+            for i in 1...buttons.count{
+                setBottomColorButton(button: buttons[i-1], idx: i)
+            }
+        }
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            cell.backgroundColor = UIColor.clear
+    }
 }

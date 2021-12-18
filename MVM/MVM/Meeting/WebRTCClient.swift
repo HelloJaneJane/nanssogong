@@ -96,7 +96,9 @@ class WebRTCClient: NSObject {
         print("create peer connection")
         let rtcConfiguration = RTCConfiguration.init()
         rtcConfiguration.iceServers = [RTCIceServer.init(urlStrings: iceServers)]
-        rtcConfiguration.iceCandidatePoolSize = 10
+        rtcConfiguration.sdpSemantics = .unifiedPlan
+        rtcConfiguration.continualGatheringPolicy = .gatherContinually
+//        rtcConfiguration.iceCandidatePoolSize = 10
 
         let rtcMediaConstraints = RTCMediaConstraints.init(mandatoryConstraints: nil, optionalConstraints: ["DtlsSrtpKeyAgreement":"true"])
         
@@ -111,7 +113,7 @@ class WebRTCClient: NSObject {
         self.peerConnection = nil
     }
     
-    func createMediaSenders() {
+    private func createMediaSenders() {
         print("create media senders")
         var audioConstraints = RTCMediaConstraints.init(mandatoryConstraints: [:], optionalConstraints: nil)
         var audioSource = WebRTCClient.factory.audioSource(with: audioConstraints)
@@ -137,7 +139,7 @@ class WebRTCClient: NSObject {
 //                break
 //            }
 //        }
-//        self.remoteVideoTrack = videoTransceiver?.receiver.track as? RTCVideoTrack
+        self.remoteVideoTrack = self.peerConnection!.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
         
     }
     
@@ -152,6 +154,40 @@ class WebRTCClient: NSObject {
             print("Error changing AVAudioSession category: \(error)")
         }
         self.rtcAudioSession.unlockForConfiguration()
+    }
+    
+    func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
+        print("start capture local video")
+        
+        guard let capturer = self.videoCapturer else {
+            return
+        }
+        
+        guard let frontCamera = (RTCCameraVideoCapturer.captureDevices().first { $0.position == .front }),
+          // choose highest res
+          let format = (RTCCameraVideoCapturer.supportedFormats(for: frontCamera).sorted { (f1, f2) -> Bool in
+              let width1 = CMVideoFormatDescriptionGetDimensions(f1.formatDescription).width
+              let width2 = CMVideoFormatDescriptionGetDimensions(f2.formatDescription).width
+              return width1 < width2
+          }).last,
+          // choose highest fps
+          let fps = (format.videoSupportedFrameRateRanges.sorted { return $0.maxFrameRate < $1.maxFrameRate }.last) else {
+              return
+          }
+        
+        capturer.startCapture(with: frontCamera,
+                              format: format,
+                              fps: Int(fps.maxFrameRate))
+        
+        self.localVideoTrack?.add(renderer)
+        
+        print(self.localVideoTrack)
+    }
+  
+    func renderRemoteVideo(to renderer: RTCVideoRenderer) {
+        print("render remote video")
+        self.remoteVideoTrack?.add(renderer)
+        print(self.remoteVideoTrack)
     }
     
     func createOffer(roomRef: DocumentReference, completion: @escaping (_ sdp: RTCSessionDescription) -> Void) {
@@ -203,12 +239,13 @@ class WebRTCClient: NSObject {
         })
     }
     
-    func sendCandidate(candidate: RTCIceCandidate, isRoomOpened: Bool, roomRef: DocumentReference?) {
-        if (roomRef == nil) {
+    func sendCandidate(candidate: RTCIceCandidate, isRoomOpened: Bool) {
+        if (self.roomId == nil) {
             print("roomRef nil이라서 send candidate fail")
             return
         }
-        let candidatesCollection = isRoomOpened ? roomRef!.collection("callerCandidates") : roomRef!.collection("calleeCandidates")
+        var roomRef = db.collection("rooms").document(self.roomId!)
+        let candidatesCollection = isRoomOpened ? roomRef.collection("callerCandidates") : roomRef.collection("calleeCandidates")
         
         do {
             let dataMessage = try JSONEncoder().encode(IceCandidate(from: candidate))
@@ -239,7 +276,7 @@ class WebRTCClient: NSObject {
                 print("Document data was empty.")
                 return
             }
-            if (self.peerConnection?.remoteDescription != nil && data["answer"] != nil) {
+            if (self.peerConnection?.remoteDescription == nil && data["answer"] != nil) {
                 do {
                     let answerJSON = try JSONSerialization.data(withJSONObject: data["answer"], options: .fragmentsAllowed)
                     let answerSDP = try JSONDecoder().decode(SessionDescription.self, from: answerJSON)
@@ -287,7 +324,7 @@ class WebRTCClient: NSObject {
 // MARK: - Peer Connection
 extension WebRTCClient: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("peerConnection didChange signalingState: \(stateChanged)")
+        print("peerConnection didChange signalingState: \(stateChanged.rawValue)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
@@ -304,15 +341,15 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     }
     
     func peerConnectionShouldNegotiate(_ peerConnection: RTCPeerConnection) {
-        print("peerConnection shoudNegotiate")
+        print("peerConnection shouldNegotiate")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
-        print("peerConnection didChange iceConnectionState: \(newState)")
+        print("peerConnection didChange iceConnectionState: \(newState.rawValue)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {
-        print("peerConnection didChange iceGatheringState: \(newState)")
+        print("peerConnection didChange iceGatheringState: \(newState.rawValue)")
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L9x-Yk-tLu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L9x-Yk-tLu">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,7 +45,6 @@
                                 <buttonConfiguration key="configuration" style="filled" title="입장"/>
                                 <connections>
                                     <action selector="villageEnterButtonTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="llg-0j-7lG"/>
-                                    <segue destination="mRC-dn-3x1" kind="show" id="WMV-2W-8Yz"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni1-Rj-3tV">
@@ -65,6 +65,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vr4-da-wZQ">
+                                <rect key="frame" x="84" y="354" width="200" height="34"/>
+                                <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
+                                <color key="tintColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="RB4-1t-Opa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,6 +82,8 @@
                             <constraint firstItem="HgY-ia-UYN" firstAttribute="top" secondItem="ni1-Rj-3tV" secondAttribute="bottom" constant="30" id="2TG-D4-HGi"/>
                             <constraint firstItem="ni1-Rj-3tV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4eW-lD-Qbi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gih-J1-64m" secondAttribute="trailing" constant="50" id="FcD-2n-66L"/>
+                            <constraint firstItem="Vr4-da-wZQ" firstAttribute="top" secondItem="HgY-ia-UYN" secondAttribute="bottom" constant="30" id="NQn-wS-OSW"/>
+                            <constraint firstItem="gih-J1-64m" firstAttribute="leading" secondItem="Vr4-da-wZQ" secondAttribute="trailing" constant="20" id="QhX-Lx-JM8"/>
                             <constraint firstItem="gih-J1-64m" firstAttribute="top" secondItem="HgY-ia-UYN" secondAttribute="bottom" constant="30" id="TXk-3F-HEt"/>
                             <constraint firstItem="ni1-Rj-3tV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="jQd-Bq-8Rg"/>
                             <constraint firstItem="HgY-ia-UYN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="smU-qO-cNf"/>
@@ -81,6 +93,8 @@
                     <connections>
                         <outlet property="logoImageView" destination="ni1-Rj-3tV" id="jdj-4h-EVS"/>
                         <outlet property="villageEnterButton" destination="gih-J1-64m" id="Oja-zK-2Bh"/>
+                        <outlet property="villagePickerTextField" destination="Vr4-da-wZQ" id="km3-Dd-hDu"/>
+                        <segue destination="mRC-dn-3x1" kind="show" identifier="VillageEnterSegue" id="Ne4-Yq-cU7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -121,41 +135,8 @@
                     <view key="view" contentMode="scaleToFill" id="Dce-7n-D9J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ykr-8o-p73" customClass="RTCEAGLVideoView">
-                                <rect key="frame" x="229" y="188" width="135" height="240"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="E2r-oe-jQa"/>
-                                    <constraint firstAttribute="height" constant="240" id="TKn-Sb-oAW"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-jl-SSK">
-                                <rect key="frame" x="204" y="433" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="testbuttonaction:" destination="TwT-gs-MEt" eventType="touchUpInside" id="0mH-XF-vU2"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxX-vh-uN8" customClass="RTCCameraPreviewView">
-                                <rect key="frame" x="50" y="188" width="135" height="240"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="ByA-oP-HN2"/>
-                                    <constraint firstAttribute="width" constant="135" id="R5e-fh-Q9t"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="J3c-1k-hvT"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="cxX-vh-uN8" firstAttribute="leading" secondItem="J3c-1k-hvT" secondAttribute="leading" constant="50" id="ELh-Sz-upE"/>
-                            <constraint firstItem="cxX-vh-uN8" firstAttribute="top" secondItem="J3c-1k-hvT" secondAttribute="top" constant="100" id="EXf-CC-elp"/>
-                            <constraint firstItem="J3c-1k-hvT" firstAttribute="trailing" secondItem="Ykr-8o-p73" secondAttribute="trailing" constant="50" id="RMN-Eh-98f"/>
-                            <constraint firstItem="Ykr-8o-p73" firstAttribute="top" secondItem="J3c-1k-hvT" secondAttribute="top" constant="100" id="ljF-pf-v1n"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0w6-Hy-BjL">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="PpS-oa-Agy">
@@ -163,11 +144,19 @@
                                 <action selector="villageExit:" destination="TwT-gs-MEt" id="vxk-f8-0Kg"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="OpC-qf-7Af">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="idm-mk-Dn5">
+                                <rect key="frame" x="319" y="5" width="75" height="34.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="testbuttonaction:" destination="TwT-gs-MEt" eventType="touchUpInside" id="uP1-Py-lto"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cameraPreview" destination="cxX-vh-uN8" id="QGS-xN-N05"/>
-                        <outlet property="remoteVideoView" destination="Ykr-8o-p73" id="UN3-vi-olD"/>
-                        <outlet property="testbutton" destination="cS8-jl-SSK" id="Rmh-wH-NNq"/>
                         <outlet property="villageMapView" destination="Dce-7n-D9J" id="td5-Fr-wic"/>
                     </connections>
                 </viewController>
@@ -177,8 +166,11 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <namedColor name="AccentColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondarySystemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

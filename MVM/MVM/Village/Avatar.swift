@@ -8,14 +8,14 @@
 import Foundation
 
 
-class Avatar {
+class Avatar: Codable {
     var avatarId: Int?
-    var nickname: String
-    var face: Int
-    var topColor: Int
-    var bottomColor: Int
-    var position: (Int, Int)?
-    var isMeeting: Bool
+    var nickname: String?
+    var face: Int?
+    var topColor: Int?
+    var bottomColor: Int?
+    var position: [Int?]
+    var isMeeting: Avatar?
     
     init(nickname: String, face: Int, topColor: Int, bottomColor: Int){
         self.avatarId = nil
@@ -23,14 +23,18 @@ class Avatar {
         self.face = face
         self.topColor = topColor
         self.bottomColor = bottomColor
-        self.position = nil
-        self.isMeeting = false
+        self.position = [nil, nil]
+        self.isMeeting = nil
     }
     
     
+    // direction: 0-up, 1-right, 2-down, 3-left
     func requestMove(direction: Int){
         // 호출되는 시기: ui에서 조이스틱이 버튼을 누르면 avatar.requestMove(0,1,2,3)를 호출한다
         // 하는 일: village 한테 나 옮겨달라고 village.moveAvatar(position: tuple, direction: int)
+        print("requestMove(direction=\(direction))")
     }
     
 }
+
+var myAvatar: Avatar?

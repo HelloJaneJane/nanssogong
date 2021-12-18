@@ -12,11 +12,11 @@ import FirebaseFirestore
 
 let db = Firestore.firestore()
 
-class MeetingRoom {
+class MeetingRoom: Codable {
     var caller: Avatar?
     var callee: Avatar?
-    var isRoomOpened: Bool
-    var roomRef: DocumentReference?
+    var isRoomOpened: Bool?
+//    var roomRef: DocumentReference?
     
     init() {
         self.caller = nil
@@ -26,23 +26,25 @@ class MeetingRoom {
     
     func createRoom(webRTCClient: WebRTCClient) -> DocumentReference {
         print("create room")
-        self.roomRef = db.collection("rooms").document()
+//        self.roomRef = db.collection("rooms").document()
+        var roomRef = db.collection("rooms").document()
         
         webRTCClient.createPeerConnection()
         
-        let callerCandidatesCollection = self.roomRef!.collection("callerCandidates")
+        let callerCandidatesCollection = roomRef.collection("callerCandidates")
         
-        webRTCClient.createOffer(roomRef: self.roomRef!){ _ in
+        webRTCClient.createOffer(roomRef: roomRef){ _ in
             print("create offer success")
         }
         
         self.isRoomOpened = true
         
-        return self.roomRef!
+//        return self.roomRef!
+        return roomRef
     }
     
     func joinRoom(webRTCClient: WebRTCClient){
-        if (self.isRoomOpened) {
+        if (self.isRoomOpened!) {
             let roomId = webRTCClient.roomId
             let roomRef = db.collection("rooms").document(roomId!)
             
