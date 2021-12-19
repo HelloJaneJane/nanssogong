@@ -217,35 +217,46 @@ class WebRTCClient: NSObject {
         })
     }
     
-    func createAnswer() {
-        let roomRef = db.collection("rooms").document()
+    func createAnswer(roomRef: DocumentReference, completion: @escaping (_ sdp: RTCSessionDescription) -> Void) {
         
         self.peerConnection!.answer(for: RTCMediaConstraints(mandatoryConstraints: self.mediaConstrains, optionalConstraints: nil),
                                        completionHandler: { (sdp, error) in
             guard let sdp = sdp else {
                 return
             }
-            self.peerConnection!.setLocalDescription(sdp)
+            self.peerConnection!.setLocalDescription(sdp, completionHandler: {
+                (error) in completion(sdp)
+            })
             
-            let roomWithAnswer = ["answer": ["type": sdp.type, "sdp": sdp.sdp]]
+            let roomWithAnswer = ["answer": ["type": "answer", "sdp": sdp.sdp]]
             roomRef.updateData(roomWithAnswer) { (err) in
                 if let err = err {
                     print("Error send answer sdp: \(err)")
                 }
                 else {
                     print("Joined room with SDP answer. Room ID: \(roomRef.documentID)")
+                    self.roomId = roomRef.documentID
                 }
             }
         })
     }
     
-    func sendCandidate(candidate: RTCIceCandidate, isRoomOpened: Bool) {
+    func sendCandidate(candidate: RTCIceCandidate) {
         if (self.roomId == nil) {
             print("roomRef nil이라서 send candidate fail")
             return
         }
         var roomRef = db.collection("rooms").document(self.roomId!)
-        let candidatesCollection = isRoomOpened ? roomRef.collection("callerCandidates") : roomRef.collection("calleeCandidates")
+        
+        var candidatesCollection = roomRef.collection("calleeCandidates")
+        for m in myVillage!.meetingRooms {
+            if m?.roomId == self.roomId && m?.callee == nil {
+                candidatesCollection = roomRef.collection("callerCandidates")
+                break
+            }
+        }
+        print(candidatesCollection.collectionID)
+
         
         do {
             let dataMessage = try JSONEncoder().encode(IceCandidate(from: candidate))
@@ -280,7 +291,7 @@ class WebRTCClient: NSObject {
                 do {
                     let answerJSON = try JSONSerialization.data(withJSONObject: data["answer"], options: .fragmentsAllowed)
                     let answerSDP = try JSONDecoder().decode(SessionDescription.self, from: answerJSON)
-                    print("Got remote description: \(answerSDP)")
+                    print("Got remote description (answerSDP)")
                     self.peerConnection!.setRemoteDescription(answerSDP.rtcSessionDescription,
                                                                       completionHandler: {(error) in
                         print("Warning: Could not set remote description: \(error)")}

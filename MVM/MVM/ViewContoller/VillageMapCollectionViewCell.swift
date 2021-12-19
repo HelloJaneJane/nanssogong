@@ -21,20 +21,16 @@ class VillageMapCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentFrame = self.contentView.frame
         
-        self.setBackground()
-        self.setAvatarLayout()
+        self.setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setBackground() {
+    func setLayout() {
         backgroundImageView = UIImageView(frame: contentFrame!)
         self.contentView.addSubview(backgroundImageView!)
-    }
-    
-    func setAvatarLayout() {
         
         let w = contentFrame!.width
         let p = 0.7*w/avatarTopWidth

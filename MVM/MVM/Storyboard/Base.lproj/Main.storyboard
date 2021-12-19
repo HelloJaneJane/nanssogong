@@ -144,17 +144,6 @@
                                 <action selector="villageExit:" destination="TwT-gs-MEt" id="vxk-f8-0Kg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="OpC-qf-7Af">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="idm-mk-Dn5">
-                                <rect key="frame" x="319" y="5" width="75" height="34.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="testbuttonaction:" destination="TwT-gs-MEt" eventType="touchUpInside" id="uP1-Py-lto"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="villageMapView" destination="Dce-7n-D9J" id="td5-Fr-wic"/>

@@ -59,16 +59,72 @@ class Village {
         self.meetingRoomPositions = [((fireVillage.meetingRoomPositions[0],fireVillage.meetingRoomPositions[1]),(fireVillage.meetingRoomPositions[2],fireVillage.meetingRoomPositions[3])),((fireVillage.meetingRoomPositions[4],fireVillage.meetingRoomPositions[5]),(fireVillage.meetingRoomPositions[6],fireVillage.meetingRoomPositions[7])),((fireVillage.meetingRoomPositions[8],fireVillage.meetingRoomPositions[9]),(fireVillage.meetingRoomPositions[10],fireVillage.meetingRoomPositions[11])),((fireVillage.meetingRoomPositions[12],fireVillage.meetingRoomPositions[13]),(fireVillage.meetingRoomPositions[14],fireVillage.meetingRoomPositions[15]))]
     }
     
-    func moveAvatar(position: (Int,Int), direction: Int) {
+    // direction: 0-up, 1-right, 2-down, 3-left
+    func moveAvatar(position: (Int,Int), direction: Int, webrtcClient: WebRTCClient, completion: @escaping () -> Void) {
+        let d = [(-1,0),(0,1),(1,0),(0,-1)]
+        let newR = position.0 + d[direction].0
+        let newC = position.1 + d[direction].1
+        print("move avatar (\(position)->\(newR),\(newC))")
         
+        // 지도 안 영역
+        if 0 <= newR && newR <= 4 && 0 <= newC && newC <= 4 {
+            var avatar = self.villageMap[newR][newC]
+            print(avatar)
+            // 빈자리 아니면 옮길 수 있다
+            if avatar == nil {
+                self.villageMap[newR][newC] = self.villageMap[position.0][position.1]
+                self.villageMap[newR][newC]?.position = [newR, newC]
+                self.villageMap[position.0][position.1] = nil
+                
+                // 미팅 중이 아니면
+                if self.villageMap[newR][newC]!.isMeeting == false {
+                    self.checkNewMeeting(newPosition: (newR, newC), webrtcClient: webrtcClient, completion: {
+                        
+                    })
+                }
+                // 미팅 중이면
+                else {
+                    self.checkCloseMeeting(originPosition: position, newPosition: (newR, newC))
+                }
+                
+                self.sendToFire(completion: {
+                    myAvatar = self.villageMap[newR][newC]
+                    completion()
+                })
+            }
+        }
     }
     
-    func checkNewMeeting(newPosition: (Int, Int)) {
-        
+    func checkNewMeeting(newPosition: (Int, Int), webrtcClient: WebRTCClient, completion: @escaping () -> Void) {
+        print("check new meeting")
+        for idx in 0...3 {
+            let pos0 = self.meetingRoomPositions[idx].0
+            let pos1 = self.meetingRoomPositions[idx].1
+            
+            if (pos0.0 == newPosition.0 && pos0.1 == newPosition.1) || (pos1.0 == newPosition.0 && pos1.1 == newPosition.1) {
+                // 이미 열린 회의실에 입장
+                if self.meetingRooms[idx]!.isRoomOpened! {
+                    self.meetingRooms[idx]?.joinRoom(webRTCClient: webrtcClient)
+                    self.villageMap[newPosition.0][newPosition.1]?.isMeeting = true
+                    self.meetingRooms[idx]?.callee = self.villageMap[newPosition.0][newPosition.1]
+                    completion()
+                }
+                // 새로운 회의실 생성
+                else {
+                    var roomRef = self.meetingRooms[idx]?.createRoom(webRTCClient: webrtcClient)
+                    webrtcClient.listenCallee(roomRef: roomRef!)
+                    
+                    self.villageMap[newPosition.0][newPosition.1]?.isMeeting = true
+                    self.meetingRooms[idx]?.caller = self.villageMap[newPosition.0][newPosition.1]
+                    
+                    completion()
+                }
+            }
+        }
     }
     
     func checkCloseMeeting(originPosition: (Int,Int), newPosition: (Int,Int)) {
-        
+        print("check close meeting")
     }
     
     func updateFromFire(completion: @escaping () -> Void) {
