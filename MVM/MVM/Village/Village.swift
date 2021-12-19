@@ -7,7 +7,7 @@
 
 import Foundation
 
-class fireVillage: Codable {
+class FireVillage: Codable {
     var avatarNum: Int?
     var map0: [Avatar?]
     var map1: [Avatar?]
@@ -51,7 +51,7 @@ class Village {
         self.meetingRoomPositions = meetingRoomPositions
     }
     
-    init(villageId: String, fireVillage: fireVillage) {
+    init(villageId: String, fireVillage: FireVillage) {
         self.villageId = villageId
         self.avatarNum = fireVillage.avatarNum
         self.villageMap = [fireVillage.map0, fireVillage.map1, fireVillage.map2, fireVillage.map3, fireVillage.map4]
@@ -71,10 +71,79 @@ class Village {
         
     }
     
+    func updateFromFire(completion: @escaping () -> Void) {
+        let villageRef = db.collection("villages").document(self.villageId!)
+        var village: Village?
+        villageRef.getDocument { snapshot, error in
+            guard let document = snapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: data)
+                let instance = try JSONDecoder().decode(FireVillage.self, from: jsonData)
+                
+                self.avatarNum = instance.avatarNum
+                self.villageMap = [instance.map0, instance.map1, instance.map2, instance.map3, instance.map4]
+                
+                print("update village succeed")
+                completion()
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
+    
+    func sendToFire(completion: @escaping () -> Void) {
+        let fireVillage = FireVillage.init(village: self)
+        
+        let villageRef = db.collection("villages").document(self.villageId!)
+        
+        do {
+            let data = try JSONEncoder().encode(fireVillage)
+            let dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+            villageRef.updateData(dict) { (err) in
+                if let err = err {
+                    print("Error updating document (send to fire): \(err)")
+                }
+                else {
+                    print("Document successfully updated (send to fire)")
+                    completion()
+                }
+            }
+        }
+        catch {
+            print("JSONSericalization caller candidate fail")
+        }
+    }
+    
+    func getNewStartPosition() -> (Int, Int){
+        print("get new start position")
+        for r in 0...4 {
+            for c in 0...4 {
+                // 그 자리에 아바타가 없고
+                if self.villageMap[r][c] == nil {
+                    // 회의실 자리가 아닐 때
+                    if !self.meetingRoomPositions.contains(where: {$0.0 == (r,c)}) && !self.meetingRoomPositions.contains(where: {$0.1 == (r,c)}) {
+                        return (r, c)
+                    }
+                }
+            }
+        }
+        return (-1, -1)
+    }
+    
 }
 
 
 var myVillage: Village?
+
 
 
 

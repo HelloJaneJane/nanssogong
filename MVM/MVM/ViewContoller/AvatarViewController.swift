@@ -172,18 +172,28 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
         
         else {
             
-            // db에서 village 받아와서 avatar id, avatar position 정하기
-            
-            myAvatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor)
-            
-            // db로 보내기
-            
-            // village map 화면으로 옮기기
-            self.performSegue(withIdentifier: "AvatarDoneSegue", sender: self)
+            // db에서 village 받아와서 avatar position 정하기
+            myVillage?.updateFromFire(completion: { [self] in
+                let newPos = myVillage?.getNewStartPosition()
+                if newPos! == (-1, -1) {
+                    print("village get new start position fail")
+                    return
+                }
+                
+                // 아바타 생성
+                myAvatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor, position: newPos!)
+                
+                // 빌리지에 아바타 넣기
+                myVillage?.villageMap[newPos!.0][newPos!.1] = myAvatar
+                
+                // db로 보내기
+                myVillage?.sendToFire(completion: {
+                    // village map 화면으로 옮기기
+                    self.performSegue(withIdentifier: "AvatarDoneSegue", sender: self)
+                })
+            })
         }
-
     }
-    
 }
 
 

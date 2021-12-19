@@ -71,32 +71,6 @@ class VillageEnterViewController: UIViewController{
         villagePickerTextField.resignFirstResponder()
         selectedVillage = ""
     }
-    
-    func getVillage(villageId: String) -> Village? {
-        let villageRef = db.collection("villages").document(villageId)
-        var village: Village?
-        villageRef.getDocument { snapshot, error in
-            guard let document = snapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            guard let data = document.data() else {
-                print("Document data was empty.")
-                return
-            }
-            
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: data)
-                let instance = try JSONDecoder().decode(fireVillage.self, from: jsonData)
-                village = Village.init(villageId: villageId, fireVillage: instance)
-            }
-            catch {
-                print(error)
-            }
-        }
-        return village
-    }
-
 
     @IBAction func villageEnterButtonTouch(_ sender: Any) {
         let villageId = villagePickerTextField.text! as String
@@ -122,26 +96,25 @@ class VillageEnterViewController: UIViewController{
                 
                 do {
                     var jsonData = try JSONSerialization.data(withJSONObject: data)
-                    var instance = try JSONDecoder().decode(fireVillage.self, from: jsonData)
+                    var instance = try JSONDecoder().decode(FireVillage.self, from: jsonData)
                     
                     // 입장 가능
                     if instance.avatarNum!<8 {
                         instance.avatarNum! += 1
                         villageRef.updateData(["avatarNum": instance.avatarNum]) { err in
                             if let err = err {
-                                print("Error updating document: \(err)")
+                                print("Error updating document (village enter): \(err)")
                             }
                             else {
-                                print("Document successfully updated")
+                                print("Document successfully updated (village enter)")
+                                
+                                myVillage = Village.init(villageId: villageId, fireVillage: instance)
+                                print(myVillage?.villageId)
+                                
+                                // avatar 화면으로 옮기기
+                                self.performSegue(withIdentifier: "VillageEnterSegue", sender: self)
                             }
                         }
-                        
-                        myVillage = Village.init(villageId: villageId, fireVillage: instance)
-                        print(myVillage?.villageId)
-                        
-                        // avatar 화면으로 옮기기
-                        self.performSegue(withIdentifier: "VillageEnterSegue", sender: self)
-                        
                     }
                     // 입장 불가능
                     else {

@@ -17,13 +17,13 @@ class Avatar: Codable {
     var position: [Int?]
     var isMeeting: Avatar?
     
-    init(nickname: String, face: Int, topColor: Int, bottomColor: Int){
+    init(nickname: String, face: Int, topColor: Int, bottomColor: Int, position: (Int,Int)){
         self.avatarId = nil
         self.nickname = nickname
         self.face = face
         self.topColor = topColor
         self.bottomColor = bottomColor
-        self.position = [nil, nil]
+        self.position = [position.0, position.1]
         self.isMeeting = nil
     }
     

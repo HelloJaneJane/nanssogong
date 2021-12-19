@@ -88,7 +88,6 @@ class VillageMapViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.remoteVideoView.delegate = self
         self.webRTCClient.delegate = self
         
         var roomRef = self.meetingRoom.createRoom(webRTCClient: self.webRTCClient)
