@@ -51,6 +51,8 @@
 		3FBF839B2733CEF400A478B9 /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837B2733CEF400A478B9 /* logo@3x.png */; };
 		3FBF839C2733CEF400A478B9 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF837C2733CEF400A478B9 /* logo@2x.png */; };
 		3FBF839E2733CF0100A478B9 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FBF839D2733CF0100A478B9 /* logo.png */; };
+		3FDA879D276EE80D00503E36 /* VillageMapCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA879C276EE80D00503E36 /* VillageMapCollectionViewController.swift */; };
+		3FDA879F276EEC0300503E36 /* VillageMapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA879E276EEC0300503E36 /* VillageMapCollectionViewCell.swift */; };
 		3FE6FEC4274F82FA00C00E22 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC3274F82FA00C00E22 /* Avatar.swift */; };
 		3FE6FEC8274F838C00C00E22 /* Village.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC7274F838C00C00E22 /* Village.swift */; };
 		3FE6FECA274F839B00C00E22 /* MeetingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */; };
@@ -105,6 +107,8 @@
 		3FBF837B2733CEF400A478B9 /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
 		3FBF837C2733CEF400A478B9 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		3FBF839D2733CF0100A478B9 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		3FDA879C276EE80D00503E36 /* VillageMapCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageMapCollectionViewController.swift; sourceTree = "<group>"; };
+		3FDA879E276EEC0300503E36 /* VillageMapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VillageMapCollectionViewCell.swift; sourceTree = "<group>"; };
 		3FE6FEC3274F82FA00C00E22 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		3FE6FEC7274F838C00C00E22 /* Village.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Village.swift; sourceTree = "<group>"; };
 		3FE6FEC9274F839B00C00E22 /* MeetingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingRoom.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				3FBF83542733C77400A478B9 /* VillageMapViewController.swift */,
 				3FBF83562733CBE800A478B9 /* AvatarViewController.swift */,
 				3FE6FECB275343CC00C00E22 /* AvatarSettingTableViewCell.swift */,
+				3FDA879C276EE80D00503E36 /* VillageMapCollectionViewController.swift */,
+				3FDA879E276EEC0300503E36 /* VillageMapCollectionViewCell.swift */,
 			);
 			path = ViewContoller;
 			sourceTree = "<group>";
@@ -432,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FDA879D276EE80D00503E36 /* VillageMapCollectionViewController.swift in Sources */,
 				3FE6FEC4274F82FA00C00E22 /* Avatar.swift in Sources */,
 				3F0115BA275D1A2A00AC63F4 /* WebRTCClient.swift in Sources */,
 				3FBF83572733CBE800A478B9 /* AvatarViewController.swift in Sources */,
@@ -441,6 +448,7 @@
 				3F113DF927314AAF00CB2B9A /* VillageEnterViewController.swift in Sources */,
 				3FBF83552733C77400A478B9 /* VillageMapViewController.swift in Sources */,
 				3F113DF527314AAF00CB2B9A /* AppDelegate.swift in Sources */,
+				3FDA879F276EEC0300503E36 /* VillageMapCollectionViewCell.swift in Sources */,
 				3F113DF727314AAF00CB2B9A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

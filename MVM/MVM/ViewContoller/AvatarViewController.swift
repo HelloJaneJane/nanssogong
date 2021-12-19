@@ -7,6 +7,11 @@
 
 import UIKit
 
+let avatarTopWidth = 193.13
+let avatarTopHeight = 108.47
+let avatarBottomWidth = 145.89
+let avatarBottomHeight = 80.13
+
 class AvatarViewContoller: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var avatarView: UIView!
@@ -45,7 +50,7 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
         nicknameTextField.delegate = self
         nicknameTextField.placeholder = "닉네임을 8자 이내로 입력하세요."
         nicknameTextField.backgroundColor = UIColor.secondarySystemFill
-//        nicknameTextField.keyboardType = .alphabet
+        nicknameTextField.keyboardType = .alphabet
         nicknameTextField.clearButtonMode = .whileEditing
         nicknameTextField.borderStyle = .roundedRect
         
@@ -57,11 +62,6 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
         avatarPreviewView = UIView(frame: CGRect(x: 0, y: safeTop+40, width: safeWidth, height: safeHeight-340))
         
         let previewCenterY = avatarPreviewView.frame.size.height/2
-        
-        let avatarTopWidth = 193.13
-        let avatarTopHeight = 108.47
-        let avatarBottomWidth = 145.89
-        let avatarBottomHeight = 80.13
         
         avatarFaceView = UIImageView(frame: CGRect(x: centerX - 50, y: previewCenterY - avatarTopHeight/2 - 80, width: 100, height: 100))
         avatarTopView = UIImageView(frame: CGRect(x: centerX - 95, y: previewCenterY - 50, width: avatarTopWidth, height: avatarTopHeight))
@@ -161,6 +161,7 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
     
     @IBAction func avatarDone(_ sender: Any) {
         print("avatar done: " + nicknameTextField.text! as String)
+//        self.performSegue(withIdentifier: "AvatarDoneSegue", sender: self)
         
         // nickname text 비어있으면 alert 띄우기
         if nicknameTextField.text! as String == "" {
@@ -169,23 +170,24 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
             alert.addAction(okAction)
             present(alert, animated: false, completion: nil)
         }
-        
+
         else {
-            
+
             // db에서 village 받아와서 avatar position 정하기
             myVillage?.updateFromFire(completion: { [self] in
                 let newPos = myVillage?.getNewStartPosition()
+                print(newPos)
                 if newPos! == (-1, -1) {
                     print("village get new start position fail")
                     return
                 }
-                
+
                 // 아바타 생성
                 myAvatar = Avatar.init(nickname: nicknameTextField.text! as String, face: avatarFace, topColor: avatarTopColor, bottomColor: avatarBottomColor, position: newPos!)
-                
+
                 // 빌리지에 아바타 넣기
                 myVillage?.villageMap[newPos!.0][newPos!.1] = myAvatar
-                
+
                 // db로 보내기
                 myVillage?.sendToFire(completion: {
                     // village map 화면으로 옮기기

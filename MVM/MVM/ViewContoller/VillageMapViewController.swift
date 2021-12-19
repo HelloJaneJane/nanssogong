@@ -10,13 +10,14 @@ import UIKit
 import FirebaseFirestore
 import WebRTC
 
+
 class VillageMapViewContoller: UIViewController {
     
     @IBOutlet var villageMapView: UIView!
     
     var localVideoView: UIView!
     var remoteVideoView: UIView!
-    var villageView: UIView!
+    var mapView: UICollectionView!
     var joystickView: UIView!
     var upButton: UIButton!
     var downButton: UIButton!
@@ -36,9 +37,12 @@ class VillageMapViewContoller: UIViewController {
         let centerY = safeTop + safeHeight/2
         
         // 가운데 village 정방형
-        villageView = UIView(frame: CGRect(x: 0, y: centerY - safeWidth/2, width: safeWidth, height: safeWidth))
-        villageView.backgroundColor = UIColor.red
-        self.view.addSubview(villageView)
+        mapView = UICollectionView(frame: CGRect(x: 0, y: centerY - safeWidth/2, width: safeWidth, height: safeWidth), collectionViewLayout: UICollectionViewFlowLayout())
+        mapView.delegate = self
+        mapView.dataSource = self
+        mapView.register(VillageMapCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        mapView.backgroundView = UIImageView(image: UIImage(named: "background.png"))
+        self.view.addSubview(mapView)
         
         // 위에 왼쪽 local, 오른쪽 remote
 //        let videoHeight = (safeHeight-safeWidth)/2
@@ -120,6 +124,14 @@ class VillageMapViewContoller: UIViewController {
     @IBAction func villageExit(_ sender: Any) {
         let alert = UIAlertController(title: "빌리지를 나가시겠습니까?", message: "빌리지 입장 화면으로 이동합니다.", preferredStyle: UIAlertController.Style.alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            
+            // 미팅중이면 hangup
+            
+            // db에서 빼야해
+            
+            
+            
+            
             // village enter view로 이동
             self.navigationController?.popToRootViewController(animated: true)
         }
@@ -157,7 +169,76 @@ extension VillageMapViewContoller: WebRTCClientDelegate {
         print("did discover local candidate")
         
         client.sendCandidate(candidate: candidate, isRoomOpened: self.meetingRoom.isRoomOpened!)
-//        self.sendCandidate(candidate: candidate)
+    }
+}
+
+// map collection
+extension VillageMapViewContoller: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        25
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! VillageMapCollectionViewCell
+        
+        let row = indexPath.item/5
+        let col = indexPath.item%5
+        
+        // meeting room position은 background 설정
+        for pos in myVillage!.meetingRoomPositions {
+            if pos.0.0 == row && pos.0.1 == col {
+                if pos.1.0 == row && pos.1.1 == col+1 {
+                    // 왼쪽 벤치
+                    cell.backgroundImageView?.image = UIImage(named: "bench_left.png")
+                }
+                else if pos.1.0 == row+1 && pos.1.1 == col {
+                    // 위쪽 벤치
+                    cell.backgroundImageView?.image = UIImage(named: "bench_up.png")
+                }
+            }
+            else if pos.1.0 == row && pos.1.1 == col {
+                if pos.0.0 == row && pos.0.1 == col-1 {
+                    // 오른쪽 벤치
+                    cell.backgroundImageView?.image = UIImage(named: "bench_right.png")
+                }
+                else if pos.0.0 == row-1 && pos.1.1 == col {
+                    // 아래쪽 벤치
+                    cell.backgroundImageView?.image = UIImage(named: "bench_down.png")
+                }
+            }
+        }
+        
+        
+        let avatar = myVillage?.villageMap[row][col]
+        
+        // 아바타 있음
+        if avatar != nil {
+            cell.avatarNicknameView?.text = avatar?.nickname
+            cell.avatarFaceView?.image = UIImage(named: "face_"+String(avatar!.face!)+".png")
+            cell.avatarTopView?.image = UIImage(named: "top_"+String(avatar!.topColor!)+".png")
+            cell.avatarBottomView?.image = UIImage(named: "bottom_"+String(avatar!.bottomColor!)+".png")
+        }
+
+        return cell
+    }
+    
+    
+    // 위 아래 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    // 옆 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    // cell 사이즈( 옆 라인을 고려하여 설정 )
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let width = collectionView.frame.width/5
+        let size = CGSize(width: width, height: width)
+        return size
     }
 }
 

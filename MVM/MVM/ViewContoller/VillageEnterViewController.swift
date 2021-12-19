@@ -73,6 +73,9 @@ class VillageEnterViewController: UIViewController{
     }
 
     @IBAction func villageEnterButtonTouch(_ sender: Any) {
+//        self.performSegue(withIdentifier: "VillageEnterSegue", sender: self)
+
+
         let villageId = villagePickerTextField.text! as String
         if villageId == "" {
             let alert = UIAlertController(title: "빌리지를 선택하세요.", message: "빌리지에 입장할 수 없습니다.", preferredStyle: UIAlertController.Style.alert)
@@ -93,11 +96,11 @@ class VillageEnterViewController: UIViewController{
                     print("Document data was empty.")
                     return
                 }
-                
+
                 do {
                     var jsonData = try JSONSerialization.data(withJSONObject: data)
                     var instance = try JSONDecoder().decode(FireVillage.self, from: jsonData)
-                    
+
                     // 입장 가능
                     if instance.avatarNum!<8 {
                         instance.avatarNum! += 1
@@ -107,10 +110,10 @@ class VillageEnterViewController: UIViewController{
                             }
                             else {
                                 print("Document successfully updated (village enter)")
-                                
+
                                 myVillage = Village.init(villageId: villageId, fireVillage: instance)
                                 print(myVillage?.villageId)
-                                
+
                                 // avatar 화면으로 옮기기
                                 self.performSegue(withIdentifier: "VillageEnterSegue", sender: self)
                             }
@@ -129,7 +132,7 @@ class VillageEnterViewController: UIViewController{
                 }
             }
         }
-        
+
     }
     
 }
