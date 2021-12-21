@@ -84,7 +84,9 @@ class Village {
                 }
                 // 미팅 중이면
                 else {
-                    self.checkCloseMeeting(originPosition: position, newPosition: (newR, newC))
+                    self.checkCloseMeeting(originPosition: position, newPosition: (newR, newC), webrtcClient: webrtcClient, completion: {
+                        
+                    })
                 }
                 
                 self.sendToFire(completion: {
@@ -118,13 +120,35 @@ class Village {
                     self.meetingRooms[idx]?.caller = self.villageMap[newPosition.0][newPosition.1]
                     
                     completion()
+                    return
                 }
             }
         }
     }
     
-    func checkCloseMeeting(originPosition: (Int,Int), newPosition: (Int,Int)) {
+    func checkCloseMeeting(originPosition: (Int, Int), newPosition: (Int, Int), webrtcClient: WebRTCClient, completion: @escaping () -> Void) {
         print("check close meeting")
+        
+        for idx in 0...3 {
+            let pos0 = self.meetingRoomPositions[idx].0
+            let pos1 = self.meetingRoomPositions[idx].1
+            print("pos=\(pos0),\(pos1) / origin=\(originPosition) / new=\(newPosition)")
+            
+            // origin은 회의실 자리, new는 안 회의실 자리
+            if (pos0.0 == originPosition.0 && pos0.1 == originPosition.1 && (pos1.0 != newPosition.0 || pos1.1 != newPosition.1)) || (pos1.0 == originPosition.0 && pos1.1 == originPosition.1 && (pos0.0 != newPosition.0 || pos0.1 != newPosition.1)) {
+                // 회의실 삭제
+                print("hangup 해야함")
+                self.meetingRooms[idx]?.hangUp(webRTCClient: webrtcClient)
+                self.villageMap[pos0.0][pos0.1]?.isMeeting = false
+                self.villageMap[pos1.0][pos1.1]?.isMeeting = false
+                self.villageMap[newPosition.0][newPosition.1]?.isMeeting = false
+                myAvatar?.isMeeting = false
+            
+                completion()
+                return
+            }
+        }
+        
     }
     
     func updateFromFire(completion: @escaping () -> Void) {

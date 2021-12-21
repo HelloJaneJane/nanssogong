@@ -196,6 +196,16 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
             })
         }
     }
+    
+    @IBAction func avatarBackAction(_ sender: Any) {
+        myVillage?.avatarNum! -= 1
+        myVillage?.sendToFire(completion: {
+            myVillage = nil
+            self.navigationController?.popToRootViewController(animated: true)
+        })
+    }
+    
+    
 }
 
 

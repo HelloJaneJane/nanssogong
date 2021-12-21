@@ -28,14 +28,38 @@ class VillageMapViewContoller: UIViewController {
     
 //    var localRenderer: RTCMTLVideoView!
 //    var remoteRenderer: RTCMTLVideoView!
+
+    var safeWidth: CGFloat!
+    var safeHeight: CGFloat!
+    var safeTop: CGFloat!
+    var centerX: CGFloat!
+    var centerY: CGFloat!
+    
+    var videoWidth: CGFloat!
+    var videoHeight: CGFloat!
+    
+    func initVideoView() {
+        print("init video view")
+        if localVideoView != nil {
+            localVideoView.removeFromSuperview()
+        }
+        if remoteVideoView != nil {
+            remoteVideoView.removeFromSuperview()
+        }
+        
+        localVideoView = UIView(frame: CGRect(x: centerX-30-videoWidth, y: 0, width: videoWidth, height: videoHeight))
+        remoteVideoView = UIView(frame: CGRect(x: centerX+30, y: 0, width: videoWidth, height: videoHeight))
+        self.view.addSubview(localVideoView)
+        self.view.addSubview(remoteVideoView)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
-        let safeWidth = villageMapView.safeAreaLayoutGuide.layoutFrame.width
-        let safeHeight = villageMapView.safeAreaLayoutGuide.layoutFrame.height
-        let safeTop = villageMapView.safeAreaInsets.top
+        safeWidth = villageMapView.safeAreaLayoutGuide.layoutFrame.width
+        safeHeight = villageMapView.safeAreaLayoutGuide.layoutFrame.height
+        safeTop = villageMapView.safeAreaInsets.top
         
-        let centerX = safeWidth/2
-        let centerY = safeTop + safeHeight/2
+        centerX = safeWidth/2
+        centerY = safeTop + safeHeight/2
         
         // 가운데 village 정방형
         mapView = UICollectionView(frame: CGRect(x: 0, y: centerY - safeWidth/2, width: safeWidth, height: safeWidth), collectionViewLayout: UICollectionViewFlowLayout())
@@ -47,14 +71,9 @@ class VillageMapViewContoller: UIViewController {
         
         // 위에 왼쪽 local, 오른쪽 remote
 //        let videoHeight = (safeHeight-safeWidth)/2
-        let videoHeight = centerY-safeWidth/2
-        let videoWidth = videoHeight*9/16
-        localVideoView = UIView(frame: CGRect(x: centerX-30-videoWidth, y: 0, width: videoWidth, height: videoHeight))
-//        localVideoView.backgroundColor = UIColor.yellow
-        remoteVideoView = UIView(frame: CGRect(x: centerX+30, y: 0, width: videoWidth, height: videoHeight))
-//        remoteVideoView.backgroundColor = UIColor.blue
-        self.view.addSubview(localVideoView)
-        self.view.addSubview(remoteVideoView)
+        videoHeight = centerY-safeWidth/2
+        videoWidth = videoHeight*9/16
+        self.initVideoView()
         
         // 아래 왼쪽 조이스틱
         joystickView = UIView(frame: CGRect(x: centerX-150, y: safeTop+safeHeight-110, width: 90, height: 90))
@@ -91,6 +110,10 @@ class VillageMapViewContoller: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if myVillage == nil {
+            return
+        }
+        
         let villageRef = db.collection("villages").document(myVillage!.villageId!)
         villageRef.addSnapshotListener { [self] snapshot, error in
             print("village 받아오기")
@@ -101,6 +124,10 @@ class VillageMapViewContoller: UIViewController {
             }
             guard let data = document.data() else {
                 print("Document data was empty.")
+                return
+            }
+            
+            if myVillage == nil {
                 return
             }
             
@@ -130,12 +157,27 @@ class VillageMapViewContoller: UIViewController {
         let alert = UIAlertController(title: "빌리지를 나가시겠습니까?", message: "빌리지 입장 화면으로 이동합니다.", preferredStyle: UIAlertController.Style.alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             
+            let r = (myAvatar?.position[0])!
+            let c = (myAvatar?.position[1])!
+            
             // 미팅중이면 hangup
+            if myAvatar?.isMeeting == true {
+                for i in 0...3 {
+                    let m = myVillage?.meetingRooms[i]
+                    if (m?.caller?.position[0] == r && m?.caller?.position[1] == c) || (m?.callee?.position[0] == r && m?.callee?.position[1] == c) {
+                        m?.hangUp(webRTCClient: self.webRTCClient)
+                        break
+                    }
+                }
+            }
             
-            // db에서 빼야해
-            
-            
-            
+            myVillage?.villageMap[r][c] = nil
+            myVillage?.avatarNum! -= 1
+            myVillage?.sendToFire(completion: {
+                
+            })
+            myAvatar = nil
+            myVillage = nil
             
             // village enter view로 이동
             self.navigationController?.popToRootViewController(animated: true)
@@ -187,6 +229,10 @@ extension VillageMapViewContoller: WebRTCClientDelegate {
                 client.renderRemoteVideo(to: remoteRenderer)
                 self.remoteVideoView.addSubview(remoteRenderer)
                 self.remoteVideoView.layoutIfNeeded()
+            }
+            
+            else if newState.rawValue == 4 || newState.rawValue == 5 || newState.rawValue == 6 { // failed, disconnected, closed
+                self.initVideoView()
             }
         }
         

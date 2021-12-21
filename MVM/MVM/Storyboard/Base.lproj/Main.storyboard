@@ -112,6 +112,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="LV5-e6-3f6">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.backward" catalog="system" id="eNv-FA-Dx6">
+                            <connections>
+                                <action selector="avatarBackAction:" destination="mRC-dn-3x1" id="j9r-0p-G3q"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="INR-X9-6pK">
                             <connections>
                                 <action selector="avatarDone:" destination="mRC-dn-3x1" id="e86-X6-iys"/>
@@ -144,6 +149,10 @@
                                 <action selector="villageExit:" destination="TwT-gs-MEt" id="vxk-f8-0Kg"/>
                             </connections>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="camera.rotate" catalog="system" id="kVL-Cq-ULW"/>
+                            <barButtonItem title="Item" image="speaker" catalog="system" id="sGe-ct-BzI"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="villageMapView" destination="Dce-7n-D9J" id="td5-Fr-wic"/>
@@ -155,6 +164,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera.rotate" catalog="system" width="128" height="94"/>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="speaker" catalog="system" width="128" height="124"/>
         <namedColor name="AccentColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

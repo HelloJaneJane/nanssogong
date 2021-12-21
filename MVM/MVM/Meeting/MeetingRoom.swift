@@ -112,7 +112,54 @@ class MeetingRoom: Codable {
         }
     }
     
-    func hangUp(){
+    func hangUp(webRTCClient: WebRTCClient) {
+        print("hangup")
+        webRTCClient.peerConnection!.close()
+        webRTCClient.peerConnection = nil
+        
+        if self.roomId != nil {
+            let roomRef = db.collection("rooms").document(self.roomId!)
+            roomRef.updateData(["answer": FieldValue.delete(), "offer": FieldValue.delete()]) { err in
+                if let err = err {
+                    print("Error updating document (hang up): \(err)")
+                } else {
+                    print("Document successfully updated (hang up)")
+                }
+            }
+            
+            let callerCandidatesCollection = roomRef.collection("callerCandidates")
+            callerCandidatesCollection.getDocuments { snapshot, err in
+                if let err = err {
+                    print("Error getting caller candidates documents: \(err)")
+                }
+                else {
+                    for document in snapshot!.documents {
+                        callerCandidatesCollection.document(document.documentID).delete()
+                    }
+                }
+            }
+            callerCandidatesCollection.parent?.delete()
+            
+            let calleeCandidatesCollection = roomRef.collection("calleeCandidates")
+            calleeCandidatesCollection.getDocuments { snapshot, err in
+                if let err = err {
+                    print("Error getting callee candidates documents: \(err)")
+                }
+                else {
+                    for document in snapshot!.documents {
+                        calleeCandidatesCollection.document(document.documentID).delete()
+                    }
+                }
+            }
+            calleeCandidatesCollection.parent?.delete()
+            
+            roomRef.delete()
+            
+            self.roomId = nil
+            self.isRoomOpened = false
+            self.caller = nil
+            self.callee = nil
+        }
         
     }
 }
