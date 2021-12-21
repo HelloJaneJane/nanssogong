@@ -25,8 +25,9 @@ class VillageMapViewContoller: UIViewController {
     var rightButton: UIButton!
     
     var webRTCClient: WebRTCClient = WebRTCClient()
-//    var meetingRoom: MeetingRoom = MeetingRoom.init()
-
+    
+//    var localRenderer: RTCMTLVideoView!
+//    var remoteRenderer: RTCMTLVideoView!
     
     override func viewDidAppear(_ animated: Bool) {
         let safeWidth = villageMapView.safeAreaLayoutGuide.layoutFrame.width
@@ -91,7 +92,9 @@ class VillageMapViewContoller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         let villageRef = db.collection("villages").document(myVillage!.villageId!)
-        villageRef.addSnapshotListener { snapshot, error in
+        villageRef.addSnapshotListener { [self] snapshot, error in
+            print("village 받아오기")
+            
             guard let document = snapshot else {
                 print("Error fetching document: \(error!)")
                 return
@@ -110,23 +113,6 @@ class VillageMapViewContoller: UIViewController {
                 if self.mapView != nil {
                     self.mapView.reloadData()
                 }
-                
-                if myAvatar!.isMeeting! {
-                    let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.localVideoView.frame.width, height: self.localVideoView.frame.height))
-                    let remoteRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.remoteVideoView.frame.width, height: self.remoteVideoView.frame.height))
-                    
-                    localRenderer.videoContentMode = .scaleAspectFill
-                    remoteRenderer.videoContentMode = .scaleAspectFill
-                    
-                    self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
-                    self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
-                    
-                    self.localVideoView.addSubview(localRenderer)
-                    self.remoteVideoView.addSubview(remoteRenderer)
-                    
-                    self.localVideoView.layoutIfNeeded()
-                    self.remoteVideoView.layoutIfNeeded()
-                }
             }
             catch {
                 print(error)
@@ -138,19 +124,7 @@ class VillageMapViewContoller: UIViewController {
         super.viewDidLoad()
         
         self.webRTCClient.delegate = self
-        
-        for i in myVillage!.villageMap{
-            for j in i{
-                print(j)
-            }
-        }
-        
-//        var roomRef = self.meetingRoom.createRoom(webRTCClient: self.webRTCClient)
-//        self.webRTCClient.listenCallee(roomRef: roomRef)
-        
-//        print(self.meetingRoom)
     }
-    
     
     @IBAction func villageExit(_ sender: Any) {
         let alert = UIAlertController(title: "빌리지를 나가시겠습니까?", message: "빌리지 입장 화면으로 이동합니다.", preferredStyle: UIAlertController.Style.alert)
@@ -179,6 +153,56 @@ extension VillageMapViewContoller: WebRTCClientDelegate {
         print("did discover local candidate")
         client.sendCandidate(candidate: candidate)
     }
+    
+    func webRTCClient(_ client: WebRTCClient, didCreateLocalCapturer capturer: RTCCameraVideoCapturer) {
+//        DispatchQueue.main.async {
+//            print("did create local capturer -> local render")
+//            let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.localVideoView.frame.width, height: self.localVideoView.frame.height))
+//            localRenderer.videoContentMode = .scaleAspectFill
+//            client.startCaptureLocalVideo(renderer: localRenderer)
+//            self.localVideoView.addSubview(localRenderer)
+//            self.localVideoView.layoutIfNeeded()
+//        }
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeSignaling stateChanged: RTCSignalingState) {
+        DispatchQueue.main.async {
+            if stateChanged.rawValue == 1 || stateChanged.rawValue == 3 { //  have local/remote offer
+                print("signaling have offer -> local render")
+                let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.localVideoView.frame.width, height: self.localVideoView.frame.height))
+                localRenderer.videoContentMode = .scaleAspectFill
+                client.startCaptureLocalVideo(renderer: localRenderer)
+                self.localVideoView.addSubview(localRenderer)
+                self.localVideoView.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeIceConnection newState: RTCIceConnectionState) {
+        DispatchQueue.main.async {
+            if newState.rawValue == 2 { // connected
+                print("ice connection connected -> remote render")
+                let remoteRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.remoteVideoView.frame.width, height: self.remoteVideoView.frame.height))
+                remoteRenderer.videoContentMode = .scaleAspectFill
+                client.renderRemoteVideo(to: remoteRenderer)
+                self.remoteVideoView.addSubview(remoteRenderer)
+                self.remoteVideoView.layoutIfNeeded()
+            }
+        }
+        
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream) {
+//        DispatchQueue.main.async {
+//            print("did add stream -> remote render")
+//            let remoteRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.remoteVideoView.frame.width, height: self.remoteVideoView.frame.height))
+//            remoteRenderer.videoContentMode = .scaleAspectFill
+//            client.renderRemoteVideo(to: remoteRenderer)
+//            self.remoteVideoView.addSubview(remoteRenderer)
+//            self.remoteVideoView.layoutIfNeeded()
+//        }
+    }
+    
 }
 
 // map collection
@@ -193,38 +217,44 @@ extension VillageMapViewContoller: UICollectionViewDelegate, UICollectionViewDat
         let row = indexPath.item/5
         let col = indexPath.item%5
         
+        // 일단 초기화
+        cell.backgroundImageView?.image = nil
+        cell.avatarNicknameView?.text = nil
+        cell.avatarFaceView?.image = nil
+        cell.avatarTopView?.image = nil
+        cell.avatarBottomView?.image = nil
+        
         // meeting room position은 background 설정
         for pos in myVillage!.meetingRoomPositions {
             if pos.0.0 == row && pos.0.1 == col {
                 if pos.1.0 == row && pos.1.1 == col+1 {
                     // 왼쪽 벤치
                     cell.backgroundImageView?.image = UIImage(named: "bench_left.png")
-                    print("left: (\(row),\(col))")
+//                    print("left: (\(row),\(col))")
                 }
                 else if pos.1.0 == row+1 && pos.1.1 == col {
                     // 위쪽 벤치
                     cell.backgroundImageView?.image = UIImage(named: "bench_up.png")
-                    print("up: (\(row),\(col))")
+//                    print("up: (\(row),\(col))")
                 }
             }
             else if pos.1.0 == row && pos.1.1 == col {
                 if pos.0.0 == row && pos.0.1 == col-1 {
                     // 오른쪽 벤치
                     cell.backgroundImageView?.image = UIImage(named: "bench_right.png")
-                    print("right: (\(row),\(col))")
+//                    print("right: (\(row),\(col))")
                 }
                 else if pos.0.0 == row-1 && pos.1.1 == col {
                     // 아래쪽 벤치
                     cell.backgroundImageView?.image = UIImage(named: "bench_down.png")
-                    print("down: (\(row),\(col))")
+//                    print("down: (\(row),\(col))")
                 }
             }
         }
         
-        
+        // 아바타 있으면 그리기
         let avatar = myVillage?.villageMap[row][col]
         
-        // 아바타 있음
         if avatar != nil {
             print("avatar: (\(row),\(col))")
             cell.avatarNicknameView?.text = avatar?.nickname
@@ -262,6 +292,7 @@ extension VillageMapViewContoller {
     @objc func moveButtonAction(_ sender: UIButton) {
         print("move button action: \(sender.tag)")
         myVillage?.moveAvatar(position: (myAvatar!.position[0]!, myAvatar!.position[1]!), direction: sender.tag, webrtcClient: self.webRTCClient, completion: {
+            print("myAvatar: pos=\(myAvatar?.position), ismeeting=\(myAvatar?.isMeeting)")
 //            self.mapView.reloadData()
             
             

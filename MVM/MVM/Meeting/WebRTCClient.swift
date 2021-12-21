@@ -66,6 +66,14 @@ struct SessionDescription: Codable {
 
 protocol WebRTCClientDelegate: AnyObject {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate)
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeIceConnection newState: RTCIceConnectionState)
+    
+    func webRTCClient(_ client: WebRTCClient, didAdd stream: RTCMediaStream)
+    
+    func webRTCClient(_ client: WebRTCClient, didCreateLocalCapturer capturer: RTCCameraVideoCapturer)
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeSignaling newState: RTCSignalingState)
 }
 
 class WebRTCClient: NSObject {
@@ -88,7 +96,11 @@ class WebRTCClient: NSObject {
     var videoCapturer: RTCCameraVideoCapturer?
     var localVideoTrack: RTCVideoTrack?
     var remoteVideoTrack: RTCVideoTrack?
-    var iceServers: [String] = ["stun:stun1.l.google.com:19302","stun:stun2.l.google.com:19302"]
+    var iceServers: [String] = ["stun:stun.l.google.com:19302",
+                                "stun:stun1.l.google.com:19302",
+                                "stun:stun2.l.google.com:19302",
+                                "stun:stun3.l.google.com:19302",
+                                "stun:stun4.l.google.com:19302"]
     
     var roomId: String?
 
@@ -132,6 +144,8 @@ class WebRTCClient: NSObject {
         self.localVideoTrack = localVideoTrack
         self.peerConnection!.add(localVideoTrack, streamIds: [kARDMedaiStreamId])
         
+        self.delegate?.webRTCClient(self, didCreateLocalCapturer: videoCapturer!)
+        
 //        var videoTransceiver: WebRTC.RTCRtpTransceiver? = nil
 //        for transceiver in self.peerConnection!.transceivers {
 //            if (transceiver.mediaType == RTCRtpMediaType.video) {
@@ -174,14 +188,12 @@ class WebRTCClient: NSObject {
           let fps = (format.videoSupportedFrameRateRanges.sorted { return $0.maxFrameRate < $1.maxFrameRate }.last) else {
               return
           }
-        
         capturer.startCapture(with: frontCamera,
                               format: format,
                               fps: Int(fps.maxFrameRate))
-        
         self.localVideoTrack?.add(renderer)
         
-        print(self.localVideoTrack)
+        print("local video track: \(self.localVideoTrack)")
     }
   
     func renderRemoteVideo(to renderer: RTCVideoRenderer) {
@@ -336,15 +348,16 @@ class WebRTCClient: NSObject {
 extension WebRTCClient: RTCPeerConnectionDelegate {
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
         print("peerConnection didChange signalingState: \(stateChanged.rawValue)")
+        self.delegate?.webRTCClient(self, didChangeSignaling: stateChanged)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
         print("peerConnection didAdd stream")
-        DispatchQueue.main.async(execute: { () -> Void in
-                    if (stream.videoTracks.count > 0) {
-                        self.remoteVideoTrack = stream.videoTracks[0]
-                    }
-                })
+//        DispatchQueue.main.async(execute: { () -> Void in
+//            if (stream.videoTracks.count > 0) {
+//                self.remoteVideoTrack = stream.videoTracks[0]
+//            }
+//        })
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
@@ -357,6 +370,7 @@ extension WebRTCClient: RTCPeerConnectionDelegate {
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceConnectionState) {
         print("peerConnection didChange iceConnectionState: \(newState.rawValue)")
+        self.delegate?.webRTCClient(self, didChangeIceConnection: newState)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange newState: RTCIceGatheringState) {

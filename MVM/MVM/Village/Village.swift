@@ -69,7 +69,7 @@ class Village {
         // 지도 안 영역
         if 0 <= newR && newR <= 4 && 0 <= newC && newC <= 4 {
             var avatar = self.villageMap[newR][newC]
-            print(avatar)
+            print("new position: \(avatar)")
             // 빈자리 아니면 옮길 수 있다
             if avatar == nil {
                 self.villageMap[newR][newC] = self.villageMap[position.0][position.1]
@@ -209,10 +209,10 @@ var myVillage: Village?
 //    let initialVillage3 = Village.init(villageId: "village3", meetingRoomPositions: [((0,0),(0,1)),((1,3),(1,4)),((3,3),(3,4)),((3,0),(4,0))])
 //    let initialVillage4 = Village.init(villageId: "village4", meetingRoomPositions: [((0,3),(0,4)),((1,0),(2,0)),((2,3),(2,4)),((4,1),(4,2))])
 //
-//    let villagedata1 = fireVillage.init(village: initialVillage1)
-//    let villagedata2 = fireVillage.init(village: initialVillage2)
-//    let villagedata3 = fireVillage.init(village: initialVillage3)
-//    let villagedata4 = fireVillage.init(village: initialVillage4)
+//    let villagedata1 = FireVillage.init(village: initialVillage1)
+//    let villagedata2 = FireVillage.init(village: initialVillage2)
+//    let villagedata3 = FireVillage.init(village: initialVillage3)
+//    let villagedata4 = FireVillage.init(village: initialVillage4)
 //
 //    do {
 //        var data = try JSONEncoder().encode(villagedata1)
@@ -270,3 +270,71 @@ var myVillage: Village?
 //        print("JSONSericalization village fail")
 //    }
 //}
+
+func initTestVillage() {
+    let initialVillage1 = Village.init(villageId: "village1test", meetingRoomPositions: [((0,3),(0,4)),((1,0),(1,1)),((3,3),(3,4)),((4,0),(4,1))])
+    let initialVillage2 = Village.init(villageId: "village2test", meetingRoomPositions: [((0,2),(0,3)),((1,0),(2,0)),((2,3),(2,4)),((4,0),(4,1))])
+    let initialVillage3 = Village.init(villageId: "village3test", meetingRoomPositions: [((0,0),(0,1)),((1,3),(1,4)),((3,3),(3,4)),((3,0),(4,0))])
+    let initialVillage4 = Village.init(villageId: "village4test", meetingRoomPositions: [((0,3),(0,4)),((1,0),(2,0)),((2,3),(2,4)),((4,1),(4,2))])
+
+    let villagedata1 = FireVillage.init(village: initialVillage1)
+    let villagedata2 = FireVillage.init(village: initialVillage2)
+    let villagedata3 = FireVillage.init(village: initialVillage3)
+    let villagedata4 = FireVillage.init(village: initialVillage4)
+
+    do {
+        var data = try JSONEncoder().encode(villagedata1)
+        var dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+        var villageRef = db.collection("villages").document("village1test")
+
+        villageRef.setData(dict) { (err) in
+            if let err = err {
+                print("Error send village: \(err)")
+            }
+            else {
+                print("send village")
+            }
+        }
+
+
+        data = try JSONEncoder().encode(villagedata2)
+        dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+        villageRef = db.collection("villages").document("village2test")
+        villageRef.setData(dict) { (err) in
+            if let err = err {
+                print("Error send village: \(err)")
+            }
+            else {
+                print("send village")
+            }
+        }
+
+        data = try JSONEncoder().encode(villagedata3)
+        dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+        villageRef = db.collection("villages").document("village3test")
+        villageRef.setData(dict) { (err) in
+            if let err = err {
+                print("Error send village: \(err)")
+            }
+            else {
+                print("send village")
+            }
+        }
+
+        data = try JSONEncoder().encode(villagedata4)
+        dict = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+        villageRef = db.collection("villages").document("village4test")
+        villageRef.setData(dict) { (err) in
+            if let err = err {
+                print("Error send village: \(err)")
+            }
+            else {
+                print("send village")
+            }
+        }
+
+    }
+    catch {
+        print("JSONSericalization village fail")
+    }
+}
