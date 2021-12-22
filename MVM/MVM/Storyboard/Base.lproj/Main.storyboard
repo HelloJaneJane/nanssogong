@@ -140,8 +140,40 @@
                     <view key="view" contentMode="scaleToFill" id="Dce-7n-D9J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amo-C0-SIo">
+                                <rect key="frame" x="324" y="792" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="0wL-z6-4dW"/>
+                                    <constraint firstAttribute="height" constant="50" id="v7i-CM-O6q"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="camera.rotate" catalog="system"/>
+                                <connections>
+                                    <action selector="rotateCamera:" destination="TwT-gs-MEt" eventType="touchUpInside" id="kSZ-EG-cRL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xtf-to-sUP">
+                                <rect key="frame" x="254" y="792" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="OtW-sc-nNx"/>
+                                    <constraint firstAttribute="height" constant="50" id="ujx-av-Hyo"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="mic" catalog="system"/>
+                                <connections>
+                                    <action selector="onoffMic:" destination="TwT-gs-MEt" eventType="touchUpInside" id="QbR-jD-Ado"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="J3c-1k-hvT"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="J3c-1k-hvT" firstAttribute="bottom" secondItem="Xtf-to-sUP" secondAttribute="bottom" constant="20" id="HC6-jt-Xqo"/>
+                            <constraint firstItem="amo-C0-SIo" firstAttribute="leading" secondItem="Xtf-to-sUP" secondAttribute="trailing" constant="20" id="SJv-6S-smC"/>
+                            <constraint firstItem="J3c-1k-hvT" firstAttribute="trailing" secondItem="amo-C0-SIo" secondAttribute="trailing" constant="40" id="Wim-IO-Oe9"/>
+                            <constraint firstItem="J3c-1k-hvT" firstAttribute="bottom" secondItem="amo-C0-SIo" secondAttribute="bottom" constant="20" id="jCd-6Q-ouj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0w6-Hy-BjL">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="PpS-oa-Agy">
@@ -149,12 +181,10 @@
                                 <action selector="villageExit:" destination="TwT-gs-MEt" id="vxk-f8-0Kg"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" image="camera.rotate" catalog="system" id="kVL-Cq-ULW"/>
-                            <barButtonItem title="Item" image="speaker" catalog="system" id="sGe-ct-BzI"/>
-                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="cameraButton" destination="amo-C0-SIo" id="FW6-rq-nvn"/>
+                        <outlet property="micButton" destination="Xtf-to-sUP" id="9qJ-TX-6BO"/>
                         <outlet property="villageMapView" destination="Dce-7n-D9J" id="td5-Fr-wic"/>
                     </connections>
                 </viewController>
@@ -166,7 +196,7 @@
     <resources>
         <image name="camera.rotate" catalog="system" width="128" height="94"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
-        <image name="speaker" catalog="system" width="128" height="124"/>
+        <image name="mic" catalog="system" width="108" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -25,9 +25,6 @@ class VillageMapViewContoller: UIViewController {
     var rightButton: UIButton!
     
     var webRTCClient: WebRTCClient = WebRTCClient()
-    
-//    var localRenderer: RTCMTLVideoView!
-//    var remoteRenderer: RTCMTLVideoView!
 
     var safeWidth: CGFloat!
     var safeHeight: CGFloat!
@@ -37,6 +34,9 @@ class VillageMapViewContoller: UIViewController {
     
     var videoWidth: CGFloat!
     var videoHeight: CGFloat!
+    
+    var mute = false
+    var frontcamera = true
     
     func initVideoView() {
         print("init video view")
@@ -188,6 +188,29 @@ class VillageMapViewContoller: UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    
+    @IBOutlet weak var micButton: UIButton!
+    @IBAction func onoffMic(_ sender: Any) {
+        if self.mute == true {
+            self.mute = false
+            micButton.setImage(UIImage(systemName: "mic"), for: .normal)
+            self.webRTCClient.setAudioEnabled(true)
+        }
+        else {
+            self.mute = true
+            micButton.setImage(UIImage(systemName: "mic.slash"), for: .normal)
+            self.webRTCClient.setAudioEnabled(false)
+        }
+    }
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBAction func rotateCamera(_ sender: Any) {
+        self.frontcamera = !self.frontcamera
+        let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.localVideoView.frame.width, height: self.localVideoView.frame.height))
+        localRenderer.videoContentMode = .scaleAspectFill
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, front: self.frontcamera)
+        self.localVideoView.addSubview(localRenderer)
+        self.localVideoView.layoutIfNeeded()
+    }
 }
 
 extension VillageMapViewContoller: WebRTCClientDelegate {
@@ -208,31 +231,38 @@ extension VillageMapViewContoller: WebRTCClientDelegate {
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeSignaling stateChanged: RTCSignalingState) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             if stateChanged.rawValue == 1 || stateChanged.rawValue == 3 { //  have local/remote offer
                 print("signaling have offer -> local render")
-                let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.localVideoView.frame.width, height: self.localVideoView.frame.height))
+                let localRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: localVideoView.frame.width, height: localVideoView.frame.height))
                 localRenderer.videoContentMode = .scaleAspectFill
-                client.startCaptureLocalVideo(renderer: localRenderer)
-                self.localVideoView.addSubview(localRenderer)
-                self.localVideoView.layoutIfNeeded()
+                client.startCaptureLocalVideo(renderer: localRenderer, front: self.frontcamera)
+                localVideoView.addSubview(localRenderer)
+                localVideoView.layoutIfNeeded()
+                
+                micButton.isEnabled = true
+                cameraButton.isEnabled = true
             }
         }
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeIceConnection newState: RTCIceConnectionState) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             if newState.rawValue == 2 { // connected
                 print("ice connection connected -> remote render")
-                let remoteRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: self.remoteVideoView.frame.width, height: self.remoteVideoView.frame.height))
+                let remoteRenderer = RTCMTLVideoView(frame: CGRect(x: 0, y: 0, width: remoteVideoView.frame.width, height: remoteVideoView.frame.height))
                 remoteRenderer.videoContentMode = .scaleAspectFill
                 client.renderRemoteVideo(to: remoteRenderer)
-                self.remoteVideoView.addSubview(remoteRenderer)
-                self.remoteVideoView.layoutIfNeeded()
+                remoteVideoView.addSubview(remoteRenderer)
+                remoteVideoView.layoutIfNeeded()
             }
             
             else if newState.rawValue == 4 || newState.rawValue == 5 || newState.rawValue == 6 { // failed, disconnected, closed
-                self.initVideoView()
+                initVideoView()
+                
+                
+                micButton.isEnabled = false
+                cameraButton.isEnabled = false
             }
         }
         
@@ -340,8 +370,6 @@ extension VillageMapViewContoller {
         myVillage?.moveAvatar(position: (myAvatar!.position[0]!, myAvatar!.position[1]!), direction: sender.tag, webrtcClient: self.webRTCClient, completion: {
             print("myAvatar: pos=\(myAvatar?.position), ismeeting=\(myAvatar?.isMeeting)")
 //            self.mapView.reloadData()
-            
-            
         })
     }
 }

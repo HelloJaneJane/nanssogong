@@ -170,16 +170,21 @@ class WebRTCClient: NSObject {
         self.rtcAudioSession.unlockForConfiguration()
     }
     
-    func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
+    func setAudioEnabled(_ isEnabled: Bool) {
+        let audioTracks = self.peerConnection!.transceivers.compactMap { return $0.sender.track as? RTCAudioTrack }
+        audioTracks.forEach { $0.isEnabled = isEnabled }
+    }
+    
+    func startCaptureLocalVideo(renderer: RTCVideoRenderer, front: Bool) {
         print("start capture local video")
         
         guard let capturer = self.videoCapturer else {
             return
         }
         
-        guard let frontCamera = (RTCCameraVideoCapturer.captureDevices().first { $0.position == .front }),
+        guard let camera = front ? (RTCCameraVideoCapturer.captureDevices().first { $0.position == .front }) : (RTCCameraVideoCapturer.captureDevices().first { $0.position == .back}),
           // choose highest res
-          let format = (RTCCameraVideoCapturer.supportedFormats(for: frontCamera).sorted { (f1, f2) -> Bool in
+          let format = (RTCCameraVideoCapturer.supportedFormats(for: camera).sorted { (f1, f2) -> Bool in
               let width1 = CMVideoFormatDescriptionGetDimensions(f1.formatDescription).width
               let width2 = CMVideoFormatDescriptionGetDimensions(f2.formatDescription).width
               return width1 < width2
@@ -188,7 +193,7 @@ class WebRTCClient: NSObject {
           let fps = (format.videoSupportedFrameRateRanges.sorted { return $0.maxFrameRate < $1.maxFrameRate }.last) else {
               return
           }
-        capturer.startCapture(with: frontCamera,
+        capturer.startCapture(with: camera,
                               format: format,
                               fps: Int(fps.maxFrameRate))
         self.localVideoTrack?.add(renderer)

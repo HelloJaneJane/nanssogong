@@ -23,8 +23,6 @@ class VillageEnterViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        initTestVillage()
-        
         self.view.backgroundColor = UIColor.white
         logoImageView.image = UIImage(named:"logo.png")
         villageEnterButton.backgroundColor = UIColor.systemGreen
