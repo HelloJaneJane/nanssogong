@@ -92,6 +92,8 @@ class AvatarViewContoller: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(avatarBackAction(_:)), name: UIScene.didEnterBackgroundNotification, object: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

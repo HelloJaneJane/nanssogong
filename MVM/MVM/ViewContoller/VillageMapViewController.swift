@@ -151,6 +151,8 @@ class VillageMapViewContoller: UIViewController {
         super.viewDidLoad()
         
         self.webRTCClient.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(finish), name: UIScene.didEnterBackgroundNotification, object: nil)
     }
     
     @IBAction func villageExit(_ sender: Any) {
@@ -188,6 +190,28 @@ class VillageMapViewContoller: UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
+    @objc func finish() {
+        let r = (myAvatar?.position[0])!
+        let c = (myAvatar?.position[1])!
+        
+        // 미팅중이면 hangup
+        if myAvatar?.isMeeting == true {
+            for i in 0...3 {
+                let m = myVillage?.meetingRooms[i]
+                if (m?.caller?.position[0] == r && m?.caller?.position[1] == c) || (m?.callee?.position[0] == r && m?.callee?.position[1] == c) {
+                    m?.hangUp(webRTCClient: self.webRTCClient)
+                    break
+                }
+            }
+        }
+        
+        myVillage?.villageMap[r][c] = nil
+        myVillage?.sendToFire(completion: {
+            
+        })
+        myAvatar = nil
+        myVillage = nil
+    }
     
     @IBOutlet weak var micButton: UIButton!
     @IBAction func onoffMic(_ sender: Any) {
@@ -260,6 +284,19 @@ extension VillageMapViewContoller: WebRTCClientDelegate {
             else if newState.rawValue == 4 || newState.rawValue == 5 || newState.rawValue == 6 { // failed, disconnected, closed
                 initVideoView()
                 
+                let r = myAvatar?.position[0]
+                let c = myAvatar?.position[1]
+                
+                // 미팅 안 없어졌으면 hangup
+                for i in 0...3 {
+                    let m = myVillage?.meetingRooms[i]
+                    if (m?.caller?.position[0] == r && m?.caller?.position[1] == c) || (m?.callee?.position[0] == r && m?.callee?.position[1] == c) {
+                        if m?.isRoomOpened == true {
+                            m?.hangUp(webRTCClient: self.webRTCClient)
+                        }
+                        break
+                    }
+                }
                 
                 micButton.isEnabled = false
                 cameraButton.isEnabled = false
